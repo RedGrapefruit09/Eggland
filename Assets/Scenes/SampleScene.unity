@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layerSize: 16
-  biome: 0
+  biome: 3
   emptyPrefab: {fileID: 1391086119631115670, guid: bc412d9689e7f644b986e9e723212a08, type: 3}
 --- !u!114 &914730145
 MonoBehaviour:
@@ -423,6 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17529bd2409e4800a7c4b2b456d66c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyPrefab: {fileID: 0}
   mainPrefab: {fileID: 788597669756173965, guid: 19c4fada184149745a89e2ab169cb5d7, type: 3}
   regularSprites:
   - {fileID: 21300000, guid: 28fc72be9e3a49340a097ec139d81b03, type: 3}
@@ -436,6 +437,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cc0aecec5fe105d49ae49dc8cacbb75f, type: 3}
   - {fileID: 21300000, guid: 8a78c72719b819f47a5b7940ba419e38, type: 3}
   - {fileID: 21300000, guid: c68cd03d0d36f6d498e5b5edc5b01507, type: 3}
+  autumnOverlay: {fileID: 0}
+  winterOverlay: {fileID: 0}
   chance:
     pairs:
     - key: 0
@@ -459,6 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17529bd2409e4800a7c4b2b456d66c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyPrefab: {fileID: 0}
   mainPrefab: {fileID: 2140405475440474298, guid: af2893c0de018ea499defee9abd2887e, type: 3}
   regularSprites:
   - {fileID: 21300000, guid: 76ba8afd363c4a24b820655b288625dc, type: 3}
@@ -478,6 +482,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ee7810d2c3cb99944b427911e9718088, type: 3}
   - {fileID: 21300000, guid: a49e64ff680482c4084dc9b04e001154, type: 3}
   - {fileID: 21300000, guid: 59b4419314bcded46b746dc5142e8be8, type: 3}
+  autumnOverlay: {fileID: 0}
+  winterOverlay: {fileID: 0}
   chance:
     pairs:
     - key: 0
@@ -501,6 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17529bd2409e4800a7c4b2b456d66c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyPrefab: {fileID: 1391086119631115670, guid: bc412d9689e7f644b986e9e723212a08, type: 3}
   mainPrefab: {fileID: 788597669756173965, guid: d867a1b73d6eb9141a8a08d37e1f38fc, type: 3}
   regularSprites:
   - {fileID: 21300000, guid: a49aedf9411d7fd4ebf912d51121ed8a, type: 3}
@@ -523,6 +530,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1f155dba4a696d24f90d4a019670e9d2, type: 3}
   autumnSprites: []
   winterSprites: []
+  autumnOverlay: {fileID: 21300000, guid: d8f29db2afd13d442a14c14db3a7d8f6, type: 3}
+  winterOverlay: {fileID: 21300000, guid: 9f4bf1729589cbd4fa2c68592c49a0a7, type: 3}
   chance:
     pairs:
     - key: 0
@@ -532,7 +541,7 @@ MonoBehaviour:
     - key: 2
       value: 100
     - key: 3
-      value: 110
+      value: 200
     error: 0
 --- !u!114 &914730149
 MonoBehaviour:
@@ -546,6 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17529bd2409e4800a7c4b2b456d66c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyPrefab: {fileID: 0}
   mainPrefab: {fileID: 788597669756173965, guid: 0a82628300f94ff43a6b3aee468dfc6b, type: 3}
   regularSprites:
   - {fileID: 21300000, guid: 97e7f7adb39ec2749a5ac43103eda34c, type: 3}
@@ -553,6 +563,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 78971d77b98802c4097ba0740c0322cf, type: 3}
   winterSprites:
   - {fileID: 21300000, guid: 470802de4ec90b34ea7f10158ba4ff51, type: 3}
+  autumnOverlay: {fileID: 0}
+  winterOverlay: {fileID: 0}
   chance:
     pairs:
     - key: 0

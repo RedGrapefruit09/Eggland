@@ -9,11 +9,14 @@ namespace Eggland.World.Generation
     /// </summary>
     public class RandomFeature : Feature
     {
+        [SerializeField] private GameObject emptyPrefab; // an empty prefab reference
         [SerializeField] private GameObject mainPrefab; // barebones prefab to instantiate
         // Sprite collections
         [SerializeField] private Sprite[] regularSprites;
         [SerializeField] private Sprite[] autumnSprites;
         [SerializeField] private Sprite[] winterSprites;
+        [SerializeField] private Sprite autumnOverlay;
+        [SerializeField] private Sprite winterOverlay;
         [SerializeField] private SerializedDictionary<Biome, int> chance; // a dictionary of chances to generate the object for each biome
 
         public override void Generate(Generator generator)
@@ -29,7 +32,8 @@ namespace Eggland.World.Generation
                     var pos = CalculateTilePosition(x, y, generator, -1f);
                     
                     // Pick sprite
-                    var sprite = RandomSprite(CurrentSpriteCollection(generator));
+                    var overlay = false;
+                    var sprite = RandomSprite(CurrentSpriteCollection(generator, ref overlay));
                     var doubleTile = sprite.bounds.size.y > 1f;
                     // Instantiate
                     if (doubleTile)
@@ -38,6 +42,17 @@ namespace Eggland.World.Generation
                     }
                     var clone = Instantiate(mainPrefab, pos, Quaternion.identity);
                     clone.GetComponent<SpriteRenderer>().sprite = sprite;
+                    // Add an overlay on top if required
+                    if (overlay)
+                    {
+                        var child = Instantiate(emptyPrefab, clone.transform);
+                        var position = child.transform.position;
+                        position = new Vector3(position.x, position.y, -2f);
+                        child.transform.position = position;
+                        child.AddComponent<SpriteRenderer>();
+                        child.GetComponent<SpriteRenderer>().sprite =
+                            generator.biome == Biome.AUTUMN ? autumnOverlay : winterOverlay;
+                    }
 
                     // Register placement for later cleanup
                     RegisterPlacement(generator, clone);
@@ -54,8 +69,14 @@ namespace Eggland.World.Generation
         }
 
         // Picks a Sprite[] for the current generator biome using a switch statement
-        private Sprite[] CurrentSpriteCollection(Generator generator)
+        private Sprite[] CurrentSpriteCollection(Generator generator, ref bool overlay)
         {
+            if (autumnSprites.Length == 0 && winterSprites.Length == 0)
+            {
+                overlay = true;
+                return regularSprites;
+            }
+            
             return generator.biome switch
             {
                 Biome.SPRING => regularSprites,
