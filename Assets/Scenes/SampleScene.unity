@@ -543,8 +543,10 @@ MonoBehaviour:
   mainPrefab: {fileID: 788597669756173965, guid: 0a82628300f94ff43a6b3aee468dfc6b, type: 3}
   regularSprites:
   - {fileID: 21300000, guid: 97e7f7adb39ec2749a5ac43103eda34c, type: 3}
-  autumnSprites: []
-  winterSprites: []
+  autumnSprites:
+  - {fileID: 21300000, guid: 78971d77b98802c4097ba0740c0322cf, type: 3}
+  winterSprites:
+  - {fileID: 21300000, guid: 470802de4ec90b34ea7f10158ba4ff51, type: 3}
   chance:
     pairs:
     - key: 0
