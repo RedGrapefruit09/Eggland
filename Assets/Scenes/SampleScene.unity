@@ -384,8 +384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c82fa4f49ad4d4bb6c5d916f5fef0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerSize: 10
-  biome: 1
+  layerSize: 16
+  biome: 0
   emptyPrefab: {fileID: 1391086119631115670, guid: bc412d9689e7f644b986e9e723212a08, type: 3}
 --- !u!114 &914730145
 MonoBehaviour:
@@ -460,8 +460,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: efffc0a5e5929204e9af470cf21b1541, type: 3}
   - {fileID: 21300000, guid: 00be94e5ab2c66745a664c5ec0de7e04, type: 3}
   - {fileID: 21300000, guid: 831ce4d25ba291046881f262c078b037, type: 3}
-  autumnSprites: []
-  winterSprites: []
+  autumnSprites:
+  - {fileID: 21300000, guid: a8fa18752350815418391c1a3060fe1b, type: 3}
+  - {fileID: 21300000, guid: 252aa9bc7abc27849a12bca08f4caf8a, type: 3}
+  - {fileID: 21300000, guid: b55077b46c998154c9a3377952399778, type: 3}
+  - {fileID: 21300000, guid: e55d6b157bc12854bbe7b20b87d594b5, type: 3}
+  - {fileID: 21300000, guid: 328af3bdb2b2c794a9be1cbaf02ab991, type: 3}
+  winterSprites:
+  - {fileID: 21300000, guid: 01de4ee618c9af64ca736da72f8119cc, type: 3}
+  - {fileID: 21300000, guid: 9de008a8986508942aa2cb17a4f85a2c, type: 3}
+  - {fileID: 21300000, guid: ee7810d2c3cb99944b427911e9718088, type: 3}
+  - {fileID: 21300000, guid: a49e64ff680482c4084dc9b04e001154, type: 3}
+  - {fileID: 21300000, guid: 59b4419314bcded46b746dc5142e8be8, type: 3}
   chance:
     pairs:
     - key: 0
