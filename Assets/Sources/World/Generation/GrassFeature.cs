@@ -1,16 +1,17 @@
 using UnityEngine;
 
-namespace Eggland.Worldgen
+namespace Eggland.World.Generation
 {
+    /// <summary>
+    /// A non-randomized <see cref="Feature"/> used to generate a flat plane of grass.
+    ///
+    /// The grass sprites vary between biomes.
+    /// </summary>
     public class GrassFeature : Feature
     {
-        // Base grass prefab
-        [SerializeField] private GameObject grassPrefab;
-        // A dictionary of grass sprites for every biome
-        [SerializeField] private SerializedDictionary<Biome, Sprite> grassSprites;
+        [SerializeField] private GameObject grassPrefab; // grass prefab reference
+        [SerializeField] private SerializedDictionary<Biome, Sprite> grassSprites; // a dictionary of grass sprites for every biome
 
-        public override string ID => "grass";
-        
         public override void Generate(Generator generator)
         {
             // For every tile
@@ -23,8 +24,8 @@ namespace Eggland.Worldgen
                     var clone = Instantiate(grassPrefab, pos, Quaternion.identity);
                     // Assign sprite
                     clone.GetComponent<SpriteRenderer>().sprite = grassSprites[generator.biome];
-                    // Register placement for removal on next generation
-                    RegisterPlacement(generator, clone, pos, true);
+                    // Register placement for removal
+                    RegisterPlacement(generator, clone);
                 }
             }
         }

@@ -52,16 +52,15 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Sources\Worldgen\GrassFeature.cs" />
-     <Compile Include="Assets\Sources\Worldgen\Generator.cs" />
-     <Compile Include="Assets\Sources\Worldgen\RandomFeature.cs" />
-     <Compile Include="Assets\Sources\Worldgen\Placement.cs" />
-     <Compile Include="Assets\Sources\CollisionDetector.cs" />
-     <Compile Include="Assets\Sources\Player.cs" />
-     <Compile Include="Assets\Sources\CameraFollow.cs" />
-     <Compile Include="Assets\Sources\Worldgen\Feature.cs" />
-     <Compile Include="Assets\Sources\DestroyOnOverlap.cs" />
-     <Compile Include="Assets\Sources\Worldgen\Biome.cs" />
+     <Compile Include="Assets\Sources\World\Generation\GrassFeature.cs" />
+     <Compile Include="Assets\Sources\World\Generation\Generator.cs" />
+     <Compile Include="Assets\Sources\World\Generation\RandomFeature.cs" />
+     <Compile Include="Assets\Sources\Player\CollisionDetector.cs" />
+     <Compile Include="Assets\Sources\Player\Player.cs" />
+     <Compile Include="Assets\Sources\Player\CameraFollow.cs" />
+     <Compile Include="Assets\Sources\World\Generation\Feature.cs" />
+     <Compile Include="Assets\Sources\World\DestroyOnOverlap.cs" />
+     <Compile Include="Assets\Sources\World\Generation\Biome.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

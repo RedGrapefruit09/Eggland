@@ -1,17 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Eggland.Worldgen
+namespace Eggland.World.Generation
 {
+    /// <summary>
+    /// A generator is the central place for worldgen.
+    /// The generator manages features, current biome and layer size, cleanup and world boundaries.
+    /// Though it is designed to be lightweight, so most things can be separated into <see cref="Feature"/>s
+    /// </summary>
     public class Generator : MonoBehaviour
     {
-        public int layerSize;
-        public Biome biome;
-        [SerializeField] private GameObject emptyPrefab;
+        public int layerSize; // the size of a generated layer. exposed to features
+        public Biome biome; // the current biome to generate. exposed to features
+        [SerializeField] private GameObject emptyPrefab; // an empty prefab for setting up world boundaries
         
-        private readonly List<Feature> features = new List<Feature>();
-        private readonly List<Placement> placements = new List<Placement>();
+        private readonly List<Feature> features = new List<Feature>(); // all registered features
+        private readonly List<GameObject> placements = new List<GameObject>(); // all collected placements
 
         private void Awake()
         {
@@ -20,34 +24,33 @@ namespace Eggland.Worldgen
 
         private void Start()
         {
-            StartCoroutine(InfGen());
-        }
-
-        private IEnumerator InfGen()
-        {
-            while (true)
-            {
-                Generate();
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.G));
-                Clean();
-            }
+            Generate();
         }
 
         #region Registering
 
-        public void RegisterPlacement(Placement placement)
+        /// <summary>
+        /// Registers a placement <see cref="GameObject"/> for later recycling.
+        /// <see cref="Feature"/> implementors can use <see cref="Feature"/>'s shortcut with the same name.
+        /// </summary>
+        /// <param name="placement">Placement <see cref="GameObject"/></param>
+        public void RegisterPlacement(GameObject placement)
         {
             placements.Add(placement);
         }
         
         private void RegisterFeatures()
         {
+            // Register all active features from code to avoid Unity serialization hell
+            
             Register(GetComponent<GrassFeature>());
             Register(GetComponents<RandomFeature>());
             
             Debug.Log($"{features.Count} features registered.");
         }
 
+        // Utils
+        
         private void Register(Feature feature)
         {
             if (feature == null)
@@ -75,25 +78,29 @@ namespace Eggland.Worldgen
         {
             Debug.Log($"World generation started. Layer size - {layerSize}, biome - {biome}");
 
+            // Call all features
             foreach (var feature in features)
             {
                 feature.Generate(this);
             }
             
             Debug.Log("Finished world generation.");
-            
-            CreateWorldBoundaries();
-            
+            CreateWorldBoundaries(); // afterwards, create world boundary objects preventing the player from going off-map
             Debug.Log("Created world boundaries.");
         }
 
         private void Clean()
         {
+            // Destroy all placements in the list
             foreach (var placement in placements)
             {
-                if (placement.GameObject != null)
+                if (placement != null)
                 {
-                    Destroy(placement.GameObject);
+                    Destroy(placement);
+                }
+                else
+                {
+                    Debug.LogError("Unexpected behavior: null placement!");
                 }
             }
 
@@ -101,7 +108,7 @@ namespace Eggland.Worldgen
         }
 
         #endregion
-
+        
         private void CreateWorldBoundaries()
         {
             // Left boundary

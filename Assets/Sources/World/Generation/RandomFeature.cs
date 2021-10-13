@@ -1,23 +1,21 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace Eggland.Worldgen
+namespace Eggland.World.Generation
 {
+    /// <summary>
+    /// A complex, biome-dependent <see cref="Feature"/> for generating random objects across the game world.
+    /// </summary>
     public class RandomFeature : Feature
     {
-        // The base prefab
-        [FormerlySerializedAs("rockPrefab")] [SerializeField] private GameObject mainPrefab;
+        [SerializeField] private GameObject mainPrefab; // barebones prefab to instantiate
         // Sprite collections
-        [FormerlySerializedAs("baseSprites")] [SerializeField] private Sprite[] regularSprites;
+        [SerializeField] private Sprite[] regularSprites;
         [SerializeField] private Sprite[] autumnSprites;
         [SerializeField] private Sprite[] winterSprites;
-        // The chance of generating in thousands for each biome
-        [SerializeField] private SerializedDictionary<Biome, int> chance;
+        [SerializeField] private SerializedDictionary<Biome, int> chance; // a dictionary of chances to generate the object for each biome
 
-        public override string ID => "rock";
-        
         public override void Generate(Generator generator)
         {
             // For every tile
@@ -36,13 +34,13 @@ namespace Eggland.Worldgen
                     // Instantiate
                     if (doubleTile)
                     {
-                        pos = new Vector3(pos.x, pos.y - 0.5f, pos.z); // offset double tiles down a bit
+                        pos = new Vector3(pos.x, pos.y - 0.5f, pos.z); // also offset double tiles down a bit
                     }
                     var clone = Instantiate(mainPrefab, pos, Quaternion.identity);
                     clone.GetComponent<SpriteRenderer>().sprite = sprite;
 
                     // Register placement for later cleanup
-                    RegisterPlacement(generator, clone, pos, isDoubleTile: doubleTile);
+                    RegisterPlacement(generator, clone);
                 }
             }
         }
