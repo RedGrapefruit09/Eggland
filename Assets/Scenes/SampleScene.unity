@@ -428,8 +428,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 28fc72be9e3a49340a097ec139d81b03, type: 3}
   - {fileID: 21300000, guid: 021a31dfef3e37b46829bffee30361c5, type: 3}
   - {fileID: 21300000, guid: d761b5987bd3d344cae46f45bedc899a, type: 3}
-  autumnSprites: []
-  winterSprites: []
+  autumnSprites:
+  - {fileID: 21300000, guid: 6de19809d1c56c641bd4c1d6d310f1e0, type: 3}
+  - {fileID: 21300000, guid: 96f5c0ddb6440c04a9b586809fc1d111, type: 3}
+  - {fileID: 21300000, guid: 9f94052fa70a84b458211664695c1f27, type: 3}
+  winterSprites:
+  - {fileID: 21300000, guid: cc0aecec5fe105d49ae49dc8cacbb75f, type: 3}
+  - {fileID: 21300000, guid: 8a78c72719b819f47a5b7940ba419e38, type: 3}
+  - {fileID: 21300000, guid: c68cd03d0d36f6d498e5b5edc5b01507, type: 3}
   chance:
     pairs:
     - key: 0
