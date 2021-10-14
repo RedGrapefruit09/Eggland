@@ -732,6 +732,10 @@ MonoBehaviour:
   minimalSprint: 5
   maximalSprint: 100
   crouchMultiplier: 0.5
+  upLookSprite: {fileID: 7509221236611423928, guid: 273250453a4902943a0dd444ed12b0a1, type: 3}
+  downLookSprite: {fileID: 3211542924266044569, guid: 273250453a4902943a0dd444ed12b0a1, type: 3}
+  rightLookSprite: {fileID: 7195382188028814258, guid: 273250453a4902943a0dd444ed12b0a1, type: 3}
+  leftLookSprite: {fileID: 1663948963604292620, guid: 273250453a4902943a0dd444ed12b0a1, type: 3}
 --- !u!50 &1282073947
 Rigidbody2D:
   serializedVersion: 4

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Eggland
@@ -36,17 +37,33 @@ namespace Eggland
         [Header("Crouching")]
         [SerializeField] private float crouchMultiplier; // by how much crouching multiplies the base speed
 
+        // Look animations
+        [Header("Animation")]
+        [SerializeField] private Sprite upLookSprite;
+        [SerializeField] private Sprite downLookSprite;
+        [SerializeField] private Sprite rightLookSprite;
+        [SerializeField] private Sprite leftLookSprite;
+        
         #endregion
 
         #region Runtime properties
 
+        private SpriteRenderer spriteRenderer;
+        
         private float sprint; // current sprint value
+        private Facing facing = Facing.DOWN;
 
         #endregion
 
         private void Awake()
         {
             sprint = maximalSprint; // initialize sprint
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        private void Start()
+        {
+            ApplyFacing();
         }
 
         private void Update()
@@ -123,24 +140,52 @@ namespace Eggland
             if (Input.GetKey(KeyCode.W) && !upDetector.colliding)
             {
                 transform.position += Vector3.up * movementSpeed * m * Time.deltaTime;
+                facing = Facing.UP;
             }
 
             if (Input.GetKey(KeyCode.S) && !downDetector.colliding)
             {
                 transform.position += Vector3.down * movementSpeed * m * Time.deltaTime;
+                facing = Facing.DOWN;
             }
 
             if (Input.GetKey(KeyCode.D) && !rightDetector.colliding)
             {
                 transform.position += Vector3.right * movementSpeed * m * Time.deltaTime;
+                facing = Facing.RIGHT;
             }
 
             if (Input.GetKey(KeyCode.A) && !leftDetector.colliding)
             {
                 transform.position += Vector3.left * movementSpeed * m * Time.deltaTime;
+                facing = Facing.LEFT;
             }
+            
+            ApplyFacing();
+        }
+
+        private void ApplyFacing()
+        {
+            var sprite = facing switch
+            {
+                Facing.UP => upLookSprite,
+                Facing.DOWN => downLookSprite,
+                Facing.LEFT => leftLookSprite,
+                Facing.RIGHT => rightLookSprite,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            spriteRenderer.sprite = sprite;
         }
 
         #endregion
+    }
+
+    public enum Facing
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
     }
 }
