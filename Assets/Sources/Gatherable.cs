@@ -27,7 +27,7 @@ namespace Eggland
         {
             foreach (var overlay in overlays)
             {
-                yield return new WaitForSeconds(tool.efficiency);
+                yield return new WaitForSeconds(0.3333333333333333333f);
                 overlayRenderer.sprite = overlay;
             }
             
