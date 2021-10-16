@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Eggland
+namespace Eggland.Gathering
 {
     /// <summary>
     /// A custom gatherable for trees, with normal animations instead of overlays.

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Eggland
+namespace Eggland.Gathering
 {
     /// <summary>
     /// A gatherable is a prop that can be mined/chopped down using a tool.
