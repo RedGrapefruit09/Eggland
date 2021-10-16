@@ -9,9 +9,13 @@ namespace Eggland
         [SerializeField] private Sprite[] mediumOverlays;
         [SerializeField] private Sprite[] largeOverlays;
         
-        public override void Gather(Tool tool)
+        public override void Gather(Tool tool, Player player)
         {
-            if (tool.type == type) StartCoroutine(OverlayAnimation(GetOverlays()));
+            if (tool.type == type)
+            {
+                player.IsGathering = true;
+                StartCoroutine(OverlayAnimation(GetOverlays(), player));
+            }
         }
 
         private Sprite[] GetOverlays()

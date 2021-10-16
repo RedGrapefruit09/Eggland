@@ -8,12 +8,16 @@ namespace Eggland
     {
         [SerializeField] private SerializedDictionary<string, Sprite[]> treeAnimations;
 
-        public override void Gather(Tool tool)
+        public override void Gather(Tool tool, Player player)
         {
-            if (tool.type == type) StartCoroutine(TreeAnimation(GetAnimation()));
+            if (tool.type == type)
+            {
+                player.IsGathering = true;
+                StartCoroutine(TreeAnimation(GetAnimation(), player));
+            }
         }
 
-        private IEnumerator TreeAnimation(IEnumerable<Sprite> treeAnimation)
+        private IEnumerator TreeAnimation(IEnumerable<Sprite> treeAnimation, Player player)
         {
             var spriteRenderer = GetComponent<SpriteRenderer>();
             
@@ -23,6 +27,7 @@ namespace Eggland
                 spriteRenderer.sprite = sprite;
             }
             
+            player.IsGathering = false;
             Destroy(gameObject);
         }
         

@@ -67,7 +67,8 @@ namespace Eggland
         private GameObject currentAxe;
         
         // Gathering
-        [SerializeField] private GameObject gatherSelection;
+        private GameObject gatherSelection;
+        [HideInInspector] public bool IsGathering { get; set; }
 
         #endregion
 
@@ -209,7 +210,7 @@ namespace Eggland
 
                 if (gatherable != null)
                 {
-                    gatherable.Gather(GetActiveTool());
+                    gatherable.Gather(GetActiveTool(), this);
                     gatherSelection = null;
                 }
             }
@@ -247,6 +248,9 @@ namespace Eggland
 
         private void ControlMovement()
         {
+            // You can't move while gathering
+            if (IsGathering) return;
+            
             var sprinted = false; // store for sprint regain
 
             // Check for crouching
