@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 4488816778120580662}
   - component: {fileID: -1636587044614245090}
   - component: {fileID: 224316118128545841}
+  - component: {fileID: 4291401268754685947}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -204,6 +205,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   immune: 0
+--- !u!114 &4291401268754685947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788597669756173965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d78d8d864f4935b59fd8e09a4cc5cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overlays: []
+  type: 0
+  overlayRenderer: {fileID: 4223520418345153309}
+  smallOverlays:
+  - {fileID: -2274107729846750440, guid: f5f75c2fedd8bcc4eabe596fd73bfa1c, type: 3}
+  - {fileID: 7399052927178628497, guid: f5f75c2fedd8bcc4eabe596fd73bfa1c, type: 3}
+  mediumOverlays:
+  - {fileID: 803878275217631175, guid: 6013cf673b2aed445a24fb828b6080a1, type: 3}
+  - {fileID: -1232337414457689421, guid: 6013cf673b2aed445a24fb828b6080a1, type: 3}
+  - {fileID: 408293680179627371, guid: 6013cf673b2aed445a24fb828b6080a1, type: 3}
+  - {fileID: 4573033059914228243, guid: 6013cf673b2aed445a24fb828b6080a1, type: 3}
+  largeOverlays:
+  - {fileID: 7696645661362787958, guid: 5fae8ae63d23be645a5b8831fb2e5ee8, type: 3}
+  - {fileID: 9170751571047356274, guid: 5fae8ae63d23be645a5b8831fb2e5ee8, type: 3}
+  - {fileID: -8153682901931596339, guid: 5fae8ae63d23be645a5b8831fb2e5ee8, type: 3}
+  - {fileID: 8852451097486281578, guid: 5fae8ae63d23be645a5b8831fb2e5ee8, type: 3}
+  - {fileID: -368424601999785243, guid: 5fae8ae63d23be645a5b8831fb2e5ee8, type: 3}
+  - {fileID: 5359632104806132199, guid: 5fae8ae63d23be645a5b8831fb2e5ee8, type: 3}
 --- !u!1 &1383709509412957517
 GameObject:
   m_ObjectHideFlags: 0

@@ -225,6 +225,7 @@ MonoBehaviour:
   - {fileID: -368424601999785243, guid: 5fae8ae63d23be645a5b8831fb2e5ee8, type: 3}
   - {fileID: 5359632104806132199, guid: 5fae8ae63d23be645a5b8831fb2e5ee8, type: 3}
   type: 0
+  overlayRenderer: {fileID: 1759148277089234026}
 --- !u!1 &1517520517167158314
 GameObject:
   m_ObjectHideFlags: 0

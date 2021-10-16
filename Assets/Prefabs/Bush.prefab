@@ -168,6 +168,7 @@ MonoBehaviour:
   - {fileID: 8348877280126138251, guid: 0cfafa197d0887d4ebf16f9a1a3cd597, type: 3}
   - {fileID: 5359651499297864829, guid: 0cfafa197d0887d4ebf16f9a1a3cd597, type: 3}
   type: 0
+  overlayRenderer: {fileID: 339461464059513813}
 --- !u!1 &3544551181025121204
 GameObject:
   m_ObjectHideFlags: 0

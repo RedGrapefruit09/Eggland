@@ -71,7 +71,7 @@ namespace Eggland.World.Generation
         // Picks a Sprite[] for the current generator biome using a switch statement
         private Sprite[] CurrentSpriteCollection(Generator generator, ref bool overlay)
         {
-            if (autumnSprites.Length == 0 && winterSprites.Length == 0)
+            if (autumnSprites.Length == 0 && winterSprites.Length == 0 && (generator.biome == Biome.AUTUMN || generator.biome == Biome.WINTER))
             {
                 overlay = true;
                 return regularSprites;

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Eggland
@@ -5,18 +6,23 @@ namespace Eggland
     public class Gatherable : MonoBehaviour
     {
         [SerializeField] private Sprite[] overlays;
-        [SerializeField] private ToolType type;
+        [SerializeField] protected ToolType type;
+        [SerializeField] private SpriteRenderer overlayRenderer;
 
-        private SpriteRenderer overlayRenderer;
-
-        private void Awake()
+        public virtual void Gather(Tool tool)
         {
-            overlayRenderer = GetComponentInChildren<SpriteRenderer>();
+            if (tool.type == type) StartCoroutine(OverlayAnimation(overlays));
         }
 
-        public void Gather(Tool tool)
+        protected IEnumerator OverlayAnimation(Sprite[] overlayCollection)
         {
-            if (tool.type == type) Destroy(gameObject);
+            foreach (var overlay in overlayCollection)
+            {
+                yield return new WaitForSeconds(0.3f);
+                overlayRenderer.sprite = overlay;
+            }
+            
+            Destroy(gameObject);
         }
     }
 }

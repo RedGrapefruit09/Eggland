@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: -7643566217276070728}
   - component: {fileID: 4044859640379803009}
   - component: {fileID: -4247949618084772635}
+  - component: {fileID: 6679189356022286270}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -204,6 +205,80 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &6679189356022286270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140405475440474298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d97f89843db845d78997e8c62bfc2b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overlays: []
+  type: 1
+  overlayRenderer: {fileID: 0}
+  treeAnimations:
+    pairs:
+    - key: oak_tree
+      value:
+      - {fileID: 7224487082249044197, guid: b9abfd2beb26c5842b2ccf923ca59e28, type: 3}
+      - {fileID: -8583916496186905251, guid: b9abfd2beb26c5842b2ccf923ca59e28, type: 3}
+      - {fileID: -7333914868377668718, guid: b9abfd2beb26c5842b2ccf923ca59e28, type: 3}
+      - {fileID: 3728547926041231829, guid: b9abfd2beb26c5842b2ccf923ca59e28, type: 3}
+      - {fileID: 3158147266552729685, guid: b9abfd2beb26c5842b2ccf923ca59e28, type: 3}
+      - {fileID: -595459830684819616, guid: b9abfd2beb26c5842b2ccf923ca59e28, type: 3}
+      - {fileID: -6500952321588810039, guid: b9abfd2beb26c5842b2ccf923ca59e28, type: 3}
+      - {fileID: 8665665040714791951, guid: b9abfd2beb26c5842b2ccf923ca59e28, type: 3}
+    - key: palm_tree
+      value:
+      - {fileID: -3577824585282162618, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: -2418765804387949301, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: -5267971824362136446, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: -7523514854498397764, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: 5303955302322444, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: -405056892988755254, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: -8072135021753303408, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: 1035983360087251024, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: -2105424731882648204, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+      - {fileID: 8256035080964320625, guid: 99db3098ebbf6444db2a41acfc5ca092, type: 3}
+    - key: pine_tree
+      value:
+      - {fileID: 2716171617892156980, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: -5164164336636413942, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: 1974273254526295584, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: 6289428553932508348, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: 7695704253687304117, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: 3705745313916265076, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: -9160129154193865833, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: -3326149411282195833, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: 6643439949380814252, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+      - {fileID: 7288023648217095809, guid: 5a6d718fb5f8dbd44963b5d4a15fa1e3, type: 3}
+    - key: spruce_tree
+      value:
+      - {fileID: 5540920319603920901, guid: ef0edfe4e2975774b9d7f6d1765c45ed, type: 3}
+      - {fileID: 8008140817555346204, guid: ef0edfe4e2975774b9d7f6d1765c45ed, type: 3}
+      - {fileID: -7071084757304115141, guid: ef0edfe4e2975774b9d7f6d1765c45ed, type: 3}
+      - {fileID: -5880510578951751164, guid: ef0edfe4e2975774b9d7f6d1765c45ed, type: 3}
+      - {fileID: -5662247038574338874, guid: ef0edfe4e2975774b9d7f6d1765c45ed, type: 3}
+      - {fileID: 7822889466294427262, guid: ef0edfe4e2975774b9d7f6d1765c45ed, type: 3}
+      - {fileID: 116617339766092353, guid: ef0edfe4e2975774b9d7f6d1765c45ed, type: 3}
+      - {fileID: -7391484174022250536, guid: ef0edfe4e2975774b9d7f6d1765c45ed, type: 3}
+    - key: willow_tree
+      value:
+      - {fileID: 2774515090935176196, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: 2847908401522823659, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: -4976412956644748666, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: -7331184154464706014, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: -7529882792639346435, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: 1677858336949369523, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: 6489776868606942649, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: 3636974655404603126, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: 3493210579441539308, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+      - {fileID: -8027504701937364958, guid: 07f0525a560c3374c9a3b8c1dd64afe0, type: 3}
+    error: 0
 --- !u!1 &7863204210815296753
 GameObject:
   m_ObjectHideFlags: 0
