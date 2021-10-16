@@ -11,7 +11,7 @@ namespace Eggland
     public class Gatherable : MonoBehaviour
     {
         [SerializeField] private Sprite[] overlays; // list of gathering overlays
-        [SerializeField] protected ToolType type; // the type of tool that is required to gather this
+        public ToolType type; // the type of tool that is required to gather this
         [SerializeField] private SpriteRenderer overlayRenderer; // a reference to a sprite renderer of the overlay object
 
         /// <summary>
@@ -24,21 +24,23 @@ namespace Eggland
             if (tool.type == type) // check if type matches
             {
                 player.IsGathering = true;
-                StartCoroutine(OverlayAnimation(overlays, player));
+                StartCoroutine(OverlayAnimation(overlays, player, tool));
             }
         }
 
-        protected IEnumerator OverlayAnimation(Sprite[] overlayCollection, Player player)
+        protected IEnumerator OverlayAnimation(Sprite[] overlayCollection, Player player, Tool tool)
         {
             // Use every overlay with a delay of a third of a second
             foreach (var overlay in overlayCollection)
             {
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(GetAnimationDelay(tool));
                 overlayRenderer.sprite = overlay;
             }
             
             player.IsGathering = false; // trigger the end of the gathering operation for the player
             Destroy(gameObject); // commit suicide
         }
+
+        protected float GetAnimationDelay(Tool tool) => 3.5f / tool.efficiency;
     }
 }

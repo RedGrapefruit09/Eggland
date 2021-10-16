@@ -13,6 +13,28 @@ namespace Eggland
         public ToolType type;
         public int efficiency;
         public int durability;
+
+        [SerializeField] private int currentDurability;
+        private Player player;
+
+        private void Awake()
+        {
+            currentDurability = durability;
+            player = FindObjectOfType<Player>();
+        }
+
+        private void Update()
+        {
+            if (currentDurability >= 5) return;
+            
+            player.NotifyDestroyed(gameObject);
+            Destroy(gameObject);
+        }
+        
+        public void OnUse()
+        {
+            currentDurability -= 25;
+        }
     }
 
     /// <summary>

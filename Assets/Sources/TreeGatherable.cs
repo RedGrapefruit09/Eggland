@@ -17,17 +17,17 @@ namespace Eggland
             if (tool.type == type)
             {
                 player.IsGathering = true;
-                StartCoroutine(TreeAnimation(GetAnimation(), player)); // start a custom coroutine
+                StartCoroutine(TreeAnimation(GetAnimation(), player, tool)); // start a custom coroutine
             }
         }
 
-        private IEnumerator TreeAnimation(IEnumerable<Sprite> treeAnimation, Player player)
+        private IEnumerator TreeAnimation(IEnumerable<Sprite> treeAnimation, Player player, Tool tool)
         {
             var spriteRenderer = GetComponent<SpriteRenderer>(); // get a reference to this object's renderer
             // Loop over the animation frames with a delay of a third of a second
             foreach (var sprite in treeAnimation)
             {
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(GetAnimationDelay(tool));
                 spriteRenderer.sprite = sprite;
             }
             

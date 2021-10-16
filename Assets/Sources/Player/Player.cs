@@ -127,23 +127,35 @@ namespace Eggland
             
             if (facing == Facing.LEFT)
             {
-                currentAxe.transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
-                currentAxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
-                currentAxe.GetComponent<SpriteRenderer>().flipY = false;
-                
-                currentPickaxe.transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
-                currentPickaxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
-                currentPickaxe.GetComponent<SpriteRenderer>().flipY = false;
+                if (currentAxe != null)
+                {
+                    currentAxe.transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
+                    currentAxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                    currentAxe.GetComponent<SpriteRenderer>().flipY = false;
+                }
+
+                if (currentPickaxe != null)
+                {
+                    currentPickaxe.transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
+                    currentPickaxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                    currentPickaxe.GetComponent<SpriteRenderer>().flipY = false;
+                }
             }
             else
             {
-                currentAxe.transform.localPosition = new Vector3(0.15f, -0.115f, -5f);
-                currentAxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
-                currentAxe.GetComponent<SpriteRenderer>().flipY = true;
-                
-                currentPickaxe.transform.localPosition = new Vector3(0.15f, -0.115f, -5f);
-                currentPickaxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
-                currentPickaxe.GetComponent<SpriteRenderer>().flipY = true;
+                if (currentAxe != null)
+                {
+                    currentAxe.transform.localPosition = new Vector3(0.15f, -0.115f, -5f);
+                    currentAxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                    currentAxe.GetComponent<SpriteRenderer>().flipY = true;
+                }
+
+                if (currentPickaxe != null)
+                {
+                    currentPickaxe.transform.localPosition = new Vector3(0.15f, -0.115f, -5f);
+                    currentPickaxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                    currentPickaxe.GetComponent<SpriteRenderer>().flipY = true;
+                }
             }
         }
         
@@ -153,16 +165,16 @@ namespace Eggland
             switch (currentTool)
             {
                 case 0:
-                    currentAxe.SetActive(false);
-                    currentPickaxe.SetActive(false);
+                    if (currentAxe != null) currentAxe.SetActive(false);
+                    if (currentPickaxe != null) currentPickaxe.SetActive(false);
                     break;
                 case 1:
-                    currentAxe.SetActive(true);
-                    currentPickaxe.SetActive(false);
+                    if (currentAxe != null) currentAxe.SetActive(true);
+                    if (currentPickaxe != null) currentPickaxe.SetActive(false);
                     break;
                 default:
-                    currentAxe.SetActive(false);
-                    currentPickaxe.SetActive(true);
+                    if (currentAxe != null) currentAxe.SetActive(false);
+                    if (currentPickaxe != null) currentPickaxe.SetActive(true);
                     break;
             }
         }
@@ -215,26 +227,30 @@ namespace Eggland
         {
             return currentTool switch
             {
-                1 => currentAxe.GetComponent<Tool>(),
-                2 => currentPickaxe.GetComponent<Tool>(),
+                1 => currentAxe != null ? currentAxe.GetComponent<Tool>() : null,
+                2 => currentPickaxe != null ? currentPickaxe.GetComponent<Tool>() : null,
                 _ => null
             };
         }
-        
+
+        private bool HasTool(Gatherable gatherable)
+        {
+            var reference = gatherable.type == ToolType.AXE ? currentAxe : currentPickaxe;
+            return reference != null;
+        }
+
         // starts off the gathering mechanism on the G keybind
         private void Gather()
         {
             // also check if a tool is equipped and an object is in the gathering selection
-            if (Input.GetKeyDown(KeyCode.G) && GetActiveTool() != null && gatherSelection != null)
-            {
-                var gatherable = gatherSelection.GetComponent<Gatherable>();
-                if (gatherable != null) // for safety, double-check if the script is attached
-                {
-                    gatherable.Gather(GetActiveTool(), this); // trigger gathering
-                    gatherSelection = null; // empty the gathering selection
-                    StartCoroutine(PlayGatheringAnimation()); // trigger the animation coroutine
-                }
-            }
+            if (!Input.GetKeyDown(KeyCode.G) || GetActiveTool() == null || gatherSelection == null) return;
+            
+            var gatherable = gatherSelection.GetComponent<Gatherable>();
+            if (!HasTool(gatherable) || gatherable == null) return;
+            
+            gatherable.Gather(GetActiveTool(), this); // trigger gathering
+            gatherSelection = null; // empty the gathering selection
+            StartCoroutine(PlayGatheringAnimation()); // trigger the animation coroutine
         }
 
         // a coroutine that plays a little animation for the current tool
@@ -260,6 +276,16 @@ namespace Eggland
                     yield return new WaitForSeconds(0.01f);
                 }
             }
+            
+            GetActiveTool().OnUse();
+        }
+
+        public void NotifyDestroyed(GameObject tool)
+        {
+            if (tool == currentAxe) currentAxe = null;
+            if (tool == currentPickaxe) currentPickaxe = null;
+
+            currentTool = 0;
         }
         
         #endregion

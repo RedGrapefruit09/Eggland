@@ -19,7 +19,7 @@ namespace Eggland
             if (tool.type == type)
             {
                 player.IsGathering = true;
-                StartCoroutine(OverlayAnimation(GetOverlays(), player));
+                StartCoroutine(OverlayAnimation(GetOverlays(), player, tool));
             }
         }
 
