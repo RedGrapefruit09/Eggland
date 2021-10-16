@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Eggland
@@ -58,11 +59,15 @@ namespace Eggland
         private float sprint; // current sprint value
         private Facing facing = Facing.DOWN;
 
+        // Tools
         private GameObject currentPickaxePrefab;
         private GameObject currentAxePrefab;
         private int currentTool;
         private GameObject currentPickaxe;
         private GameObject currentAxe;
+        
+        // Gathering
+        [SerializeField] private GameObject gatherSelection;
 
         #endregion
 
@@ -89,9 +94,11 @@ namespace Eggland
             ApplyToolFacing();
             SwitchTools();
             DisplayActiveTool();
+            
+            Gather();
         }
 
-        #region Tools
+        #region Tools & Gathering
 
         private void SetupTools()
         {
@@ -166,9 +173,50 @@ namespace Eggland
                 currentTool = 2;
             }
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.gameObject.CompareTag("GatherZone")) return;
+
+            if (gatherSelection == null)
+            {
+                gatherSelection = other.gameObject.transform.parent.gameObject;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (!other.gameObject.CompareTag("GatherZone")) return;
+
+            if (gatherSelection != null) gatherSelection = null;
+        }
+
+        private Tool GetActiveTool()
+        {
+            return currentTool switch
+            {
+                1 => currentAxe.GetComponent<Tool>(),
+                2 => currentPickaxe.GetComponent<Tool>(),
+                _ => null
+            };
+        }
+        
+        private void Gather()
+        {
+            if (Input.GetKeyDown(KeyCode.G) && GetActiveTool() != null && gatherSelection != null)
+            {
+                var gatherable = gatherSelection.GetComponent<Gatherable>();
+
+                if (gatherable != null)
+                {
+                    gatherable.Gather(GetActiveTool());
+                    gatherSelection = null;
+                }
+            }
+        }
         
         #endregion
-        
+
         #region Health
 
         private void UpdateCracks()

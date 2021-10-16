@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Eggland
@@ -14,24 +13,10 @@ namespace Eggland
         {
             overlayRenderer = GetComponentInChildren<SpriteRenderer>();
         }
-        
+
         public void Gather(Tool tool)
         {
-            if (tool.type == type)
-            {
-                StartCoroutine(StartGathering(tool));
-            }
-        }
-
-        private IEnumerator StartGathering(Tool tool)
-        {
-            foreach (var overlay in overlays)
-            {
-                yield return new WaitForSeconds(0.3333333333333333333f);
-                overlayRenderer.sprite = overlay;
-            }
-            
-            Destroy(gameObject);
+            if (tool.type == type) Destroy(gameObject);
         }
     }
 }

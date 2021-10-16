@@ -70,7 +70,6 @@ GameObject:
   - component: {fileID: 4488816778120580662}
   - component: {fileID: -1636587044614245090}
   - component: {fileID: 224316118128545841}
-  - component: {fileID: 2664406089239898199}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -205,20 +204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   immune: 0
---- !u!114 &2664406089239898199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788597669756173965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f9ca39347dc4aeca2a6ef31932a37f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  overlays: []
-  type: 0
 --- !u!1 &1383709509412957517
 GameObject:
   m_ObjectHideFlags: 0

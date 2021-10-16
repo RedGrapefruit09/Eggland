@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layerSize: 16
-  biome: 2
+  biome: 0
   emptyPrefab: {fileID: 1391086119631115670, guid: bc412d9689e7f644b986e9e723212a08, type: 3}
 --- !u!114 &914730145
 MonoBehaviour:
@@ -748,6 +748,7 @@ MonoBehaviour:
   - {fileID: 3794249934958869932, guid: f1578a1dc0d87164aad6d1e54561ee0d, type: 3}
   - {fileID: 3778467188395825585, guid: 27feb817d6d5ca548a72b7b61a014700, type: 3}
   - {fileID: 4866501303273930737, guid: e9a8e34a7751c4d4d910900130711655, type: 3}
+  gatherSelection: {fileID: 0}
 --- !u!50 &1282073947
 Rigidbody2D:
   serializedVersion: 4
