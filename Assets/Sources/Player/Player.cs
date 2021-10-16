@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Eggland
@@ -74,6 +74,8 @@ namespace Eggland
 
         private void Awake()
         {
+            cracksObject.GetComponent<SpriteRenderer>().sprite = null;
+            
             sprint = maximalSprint; // initialize sprint
             spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -116,6 +118,8 @@ namespace Eggland
 
         private void ApplyToolFacing()
         {
+            if (IsGathering) return;
+            
             if (facing == Facing.LEFT)
             {
                 currentAxe.transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
@@ -189,6 +193,7 @@ namespace Eggland
         {
             if (!other.gameObject.CompareTag("GatherZone")) return;
 
+            // ReSharper disable once RedundantCheckBeforeAssignment
             if (gatherSelection != null) gatherSelection = null;
         }
 
@@ -212,6 +217,28 @@ namespace Eggland
                 {
                     gatherable.Gather(GetActiveTool(), this);
                     gatherSelection = null;
+                    StartCoroutine(PlayGatheringAnimation());
+                }
+            }
+        }
+
+        private IEnumerator PlayGatheringAnimation()
+        {
+            var tool = GetActiveTool().gameObject;
+            var repeats = currentTool == 1 ? 35 : 20;
+            
+            while (IsGathering)
+            {
+                for (var i = 0; i < repeats; ++i)
+                {
+                    tool.transform.Rotate(0f, 0f, 2f);
+                    yield return new WaitForSeconds(0.01f);
+                }
+
+                for (var i = 0; i < repeats; ++i)
+                {
+                    tool.transform.Rotate(0f, 0f, -2f);
+                    yield return new WaitForSeconds(0.01f);
                 }
             }
         }
