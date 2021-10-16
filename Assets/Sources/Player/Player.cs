@@ -103,8 +103,11 @@ namespace Eggland
 
         #region Tools & Gathering
 
+        // setup the tool prefabs as children of this object
         private void SetupTools()
         {
+            // instantiate the prefabs, deactivate them and assign references
+
             var axe = Instantiate(currentAxePrefab, transform);
             axe.SetActive(false);
             currentAxe = axe;
@@ -113,11 +116,13 @@ namespace Eggland
             pickaxe.SetActive(false);
             currentPickaxe = pickaxe;
 
-            currentTool = 0;
+            currentTool = 0; // set current tool to be none/0
         }
 
+        // rotate and position the tools according to the player's facing
         private void ApplyToolFacing()
         {
+            // usual tool facing mustn't be applied during gathering, since that'd break the gathering animation
             if (IsGathering) return;
             
             if (facing == Facing.LEFT)
@@ -142,6 +147,7 @@ namespace Eggland
             }
         }
         
+        // activate the current active tool and deactivate all others in the scene
         private void DisplayActiveTool()
         {
             switch (currentTool)
@@ -161,6 +167,10 @@ namespace Eggland
             }
         }
 
+        // provides keybinds that allow the player to switch their current tool
+        // 0 => no tool
+        // 1 => axe
+        // 2 => pickaxe
         private void SwitchTools()
         {
             if (Input.GetKeyDown(KeyCode.Alpha0))
@@ -178,11 +188,12 @@ namespace Eggland
                 currentTool = 2;
             }
         }
-
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.gameObject.CompareTag("GatherZone")) return;
 
+            // include the zone's parent into the gathering selection
             if (gatherSelection == null)
             {
                 gatherSelection = other.gameObject.transform.parent.gameObject;
@@ -193,10 +204,13 @@ namespace Eggland
         {
             if (!other.gameObject.CompareTag("GatherZone")) return;
 
+            // exclude the zone's parent out of the gathering selection
             // ReSharper disable once RedundantCheckBeforeAssignment
             if (gatherSelection != null) gatherSelection = null;
         }
 
+        // returns the reference to the tool script of the current used tool
+        // if the player hasn't a tool equipped, a null reference is returned
         private Tool GetActiveTool()
         {
             return currentTool switch
@@ -207,34 +221,39 @@ namespace Eggland
             };
         }
         
+        // starts off the gathering mechanism on the G keybind
         private void Gather()
         {
+            // also check if a tool is equipped and an object is in the gathering selection
             if (Input.GetKeyDown(KeyCode.G) && GetActiveTool() != null && gatherSelection != null)
             {
                 var gatherable = gatherSelection.GetComponent<Gatherable>();
-
-                if (gatherable != null)
+                if (gatherable != null) // for safety, double-check if the script is attached
                 {
-                    gatherable.Gather(GetActiveTool(), this);
-                    gatherSelection = null;
-                    StartCoroutine(PlayGatheringAnimation());
+                    gatherable.Gather(GetActiveTool(), this); // trigger gathering
+                    gatherSelection = null; // empty the gathering selection
+                    StartCoroutine(PlayGatheringAnimation()); // trigger the animation coroutine
                 }
             }
         }
 
+        // a coroutine that plays a little animation for the current tool
+        // the animation consists of the tool rotating up and down while the gathering is still in process
         private IEnumerator PlayGatheringAnimation()
         {
-            var tool = GetActiveTool().gameObject;
-            var repeats = currentTool == 1 ? 35 : 20;
+            var tool = GetActiveTool().gameObject; // get the tool
+            var repeats = currentTool == 1 ? 35 : 20; // rotate the axe 35 degrees and the pickaxe 20 degrees
             
-            while (IsGathering)
+            while (IsGathering) // repeat the animation until the gathering process is finished
             {
+                // rotate upwards by 2 degrees with a 1/100 second delay
                 for (var i = 0; i < repeats; ++i)
                 {
                     tool.transform.Rotate(0f, 0f, 2f);
                     yield return new WaitForSeconds(0.01f);
                 }
 
+                // then, rotate downwards with the same action pattern
                 for (var i = 0; i < repeats; ++i)
                 {
                     tool.transform.Rotate(0f, 0f, -2f);
@@ -275,8 +294,7 @@ namespace Eggland
 
         private void ControlMovement()
         {
-            // You can't move while gathering
-            if (IsGathering) return;
+            if (IsGathering) return; // block movement during gathering to avoid animation oddness
             
             var sprinted = false; // store for sprint regain
 
@@ -340,9 +358,9 @@ namespace Eggland
             ApplyFacing();
         }
 
+        // applies the correct facing sprite to the player's renderer
         private void ApplyFacing()
         {
-            // Apply to player
             var sprite = facing switch
             {
                 Facing.UP => upLookSprite,

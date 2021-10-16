@@ -12,14 +12,14 @@ namespace Eggland
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("GatherZone")) return;
+            if (other.gameObject.CompareTag("GatherZone")) return; // ignore gatherzones
             
             colliding = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("GatherZone")) return;
+            if (other.gameObject.CompareTag("GatherZone")) return; // ignore gatherzones
             
             colliding = false;
         }
