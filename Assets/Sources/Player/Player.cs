@@ -44,6 +44,11 @@ namespace Eggland
         [SerializeField] private Sprite rightLookSprite;
         [SerializeField] private Sprite leftLookSprite;
         
+        // Tools
+        [Header("Tools")]
+        [SerializeField] private GameObject[] pickaxes;
+        [SerializeField] private GameObject[] axes;
+
         #endregion
 
         #region Runtime properties
@@ -53,12 +58,22 @@ namespace Eggland
         private float sprint; // current sprint value
         private Facing facing = Facing.DOWN;
 
+        private GameObject currentPickaxePrefab;
+        private GameObject currentAxePrefab;
+        private int currentTool;
+        private GameObject currentPickaxe;
+        private GameObject currentAxe;
+
         #endregion
 
         private void Awake()
         {
             sprint = maximalSprint; // initialize sprint
             spriteRenderer = GetComponent<SpriteRenderer>();
+
+            currentPickaxePrefab = pickaxes[0];
+            currentAxePrefab = axes[0];
+            SetupTools();
         }
 
         private void Start()
@@ -70,8 +85,90 @@ namespace Eggland
         {
             UpdateCracks();
             ControlMovement();
+            
+            ApplyToolFacing();
+            SwitchTools();
+            DisplayActiveTool();
         }
 
+        #region Tools
+
+        private void SetupTools()
+        {
+            var axe = Instantiate(currentAxePrefab, transform);
+            axe.SetActive(false);
+            currentAxe = axe;
+
+            var pickaxe = Instantiate(currentPickaxePrefab, transform);
+            pickaxe.SetActive(false);
+            currentPickaxe = pickaxe;
+
+            currentTool = 0;
+        }
+
+        private void ApplyToolFacing()
+        {
+            if (facing == Facing.LEFT)
+            {
+                currentAxe.transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
+                currentAxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                currentAxe.GetComponent<SpriteRenderer>().flipY = false;
+                
+                currentPickaxe.transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
+                currentPickaxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                currentPickaxe.GetComponent<SpriteRenderer>().flipY = false;
+            }
+            else
+            {
+                currentAxe.transform.localPosition = new Vector3(0.15f, -0.115f, -5f);
+                currentAxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                currentAxe.GetComponent<SpriteRenderer>().flipY = true;
+                
+                currentPickaxe.transform.localPosition = new Vector3(0.15f, -0.115f, -5f);
+                currentPickaxe.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                currentPickaxe.GetComponent<SpriteRenderer>().flipY = true;
+            }
+        }
+        
+        private void DisplayActiveTool()
+        {
+            switch (currentTool)
+            {
+                case 0:
+                    currentAxe.SetActive(false);
+                    currentPickaxe.SetActive(false);
+                    break;
+                case 1:
+                    currentAxe.SetActive(true);
+                    currentPickaxe.SetActive(false);
+                    break;
+                default:
+                    currentAxe.SetActive(false);
+                    currentPickaxe.SetActive(true);
+                    break;
+            }
+        }
+
+        private void SwitchTools()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                currentTool = 0;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                currentTool = 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                currentTool = 2;
+            }
+        }
+        
+        #endregion
+        
         #region Health
 
         private void UpdateCracks()
@@ -166,6 +263,7 @@ namespace Eggland
 
         private void ApplyFacing()
         {
+            // Apply to player
             var sprite = facing switch
             {
                 Facing.UP => upLookSprite,

@@ -736,6 +736,18 @@ MonoBehaviour:
   downLookSprite: {fileID: 3211542924266044569, guid: 273250453a4902943a0dd444ed12b0a1, type: 3}
   rightLookSprite: {fileID: 7195382188028814258, guid: 273250453a4902943a0dd444ed12b0a1, type: 3}
   leftLookSprite: {fileID: 1663948963604292620, guid: 273250453a4902943a0dd444ed12b0a1, type: 3}
+  pickaxes:
+  - {fileID: 7443744474442702115, guid: b6a6c8d2cb72de547ab4997df77b385b, type: 3}
+  - {fileID: 8964997587937110066, guid: 777ec4cde3a7ba6428dd225cca48c7ec, type: 3}
+  - {fileID: 1988557727778151343, guid: 96e36c9d2b51dac4ba7e00c73461e974, type: 3}
+  - {fileID: 2671605301380845222, guid: c75ddb14eb89deb4b99f3ca0ecf07729, type: 3}
+  - {fileID: 2748620541153133956, guid: 645ad7d03e451ab40972e18ddaaf77df, type: 3}
+  axes:
+  - {fileID: 8478821176690218093, guid: 72b77cff4c9bf7641be9a9dc6e17dea0, type: 3}
+  - {fileID: 5965660191603031795, guid: 0c1aa4739cc16b94b8a10a55f7c652a0, type: 3}
+  - {fileID: 3794249934958869932, guid: f1578a1dc0d87164aad6d1e54561ee0d, type: 3}
+  - {fileID: 3778467188395825585, guid: 27feb817d6d5ca548a72b7b61a014700, type: 3}
+  - {fileID: 4866501303273930737, guid: e9a8e34a7751c4d4d910900130711655, type: 3}
 --- !u!50 &1282073947
 Rigidbody2D:
   serializedVersion: 4
