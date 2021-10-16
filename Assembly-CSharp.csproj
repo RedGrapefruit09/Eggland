@@ -53,6 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Sources\World\Generation\Biome.cs" />
+     <Compile Include="Assets\Sources\Tool.cs" />
      <Compile Include="Assets\Sources\World\Generation\GrassFeature.cs" />
      <Compile Include="Assets\Sources\World\Generation\Generator.cs" />
      <Compile Include="Assets\Sources\World\Generation\RandomFeature.cs" />
@@ -62,7 +63,6 @@
      <Compile Include="Assets\Sources\Player\CameraFollow.cs" />
      <Compile Include="Assets\Sources\World\Generation\Feature.cs" />
      <Compile Include="Assets\Sources\Gatherable.cs" />
-     <Compile Include="Assets\Sources\Tool.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
