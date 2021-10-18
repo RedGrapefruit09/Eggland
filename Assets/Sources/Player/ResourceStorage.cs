@@ -61,7 +61,7 @@ namespace Eggland
         private void WriteToFile()
         {
             var path = $"{Application.persistentDataPath}/storage.json";
-            var raw = JsonUtility.ToJson(state);
+            var raw = JsonUtility.ToJson(state, true);
             
             File.WriteAllText(path, raw);
         }
