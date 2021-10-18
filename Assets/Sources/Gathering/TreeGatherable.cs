@@ -33,6 +33,7 @@ namespace Eggland.Gathering
             
             player.IsGathering = false;
             Destroy(gameObject);
+            SendGatheredResources();
         }
         
         private IEnumerable<Sprite> GetAnimation()

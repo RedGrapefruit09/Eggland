@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Eggland.Gathering
@@ -13,6 +14,14 @@ namespace Eggland.Gathering
         [SerializeField] private Sprite[] overlays; // list of gathering overlays
         public ToolType type; // the type of tool that is required to gather this
         [SerializeField] private SpriteRenderer overlayRenderer; // a reference to a sprite renderer of the overlay object
+        [SerializeField] private SimplePair<ResourceType, Range> drop;
+        [SerializeField] private SerializedDictionary<string, SimplePair<ResourceType, Range>> dependentDrops;
+        private ResourceStorage storage;
+
+        private void Awake()
+        {
+            storage = FindObjectOfType<ResourceStorage>();
+        }
 
         /// <summary>
         /// Trigger the gathering operation if that operation is feasible (the tool is of the correct type).
@@ -39,8 +48,30 @@ namespace Eggland.Gathering
             
             player.IsGathering = false; // trigger the end of the gathering operation for the player
             Destroy(gameObject); // commit suicide
+            SendGatheredResources(); // send resources
         }
 
-        protected float GetAnimationDelay(Tool tool) => 3.5f / tool.efficiency;
+        protected static float GetAnimationDelay(Tool tool) => 3.5f / tool.efficiency;
+
+        protected void SendGatheredResources()
+        {
+            if (dependentDrops.Count == 0)
+            {
+                var amount = Random.Range(drop.value.min, drop.value.max + 1);
+                storage.Add(drop.key, amount);
+            }
+            else
+            {
+                foreach (var pair in dependentDrops)
+                {
+                    if (!GetComponent<SpriteRenderer>().sprite.name.StartsWith(pair.Key)) continue;
+                    
+                    var amount = Random.Range(pair.Value.value.min, pair.Value.value.max + 1);
+                    storage.Add(pair.Value.key, amount);
+                    
+                    break;
+                }
+            }
+        }
     }
 }
