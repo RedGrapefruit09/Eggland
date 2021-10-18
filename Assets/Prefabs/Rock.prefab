@@ -220,6 +220,32 @@ MonoBehaviour:
   overlays: []
   type: 0
   overlayRenderer: {fileID: 4223520418345153309}
+  drop:
+    key: 0
+    value:
+      min: 0
+      max: 0
+  dependentDrops:
+    pairs:
+    - key: small
+      value:
+        key: 8
+        value:
+          min: 1
+          max: 2
+    - key: medium
+      value:
+        key: 8
+        value:
+          min: 2
+          max: 4
+    - key: large
+      value:
+        key: 8
+        value:
+          min: 3
+          max: 5
+    error: 0
   smallOverlays:
   - {fileID: -2274107729846750440, guid: f5f75c2fedd8bcc4eabe596fd73bfa1c, type: 3}
   - {fileID: 7399052927178628497, guid: f5f75c2fedd8bcc4eabe596fd73bfa1c, type: 3}
