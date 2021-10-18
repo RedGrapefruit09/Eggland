@@ -25,7 +25,16 @@ namespace Eggland
         }
 
         public int Get(ResourceType type) => state[type];
+
         public void Add(ResourceType type, int amount) => state[type] += amount;
+
+        public void Synchronize()
+        {
+            foreach (var obj in FindObjectsOfType<ResourceUICount>())
+            {
+                obj.Sync(state[obj.type]);
+            }
+        }
     }
 
     public enum ResourceType

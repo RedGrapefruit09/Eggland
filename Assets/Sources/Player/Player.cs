@@ -50,6 +50,10 @@ namespace Eggland
         [Header("Tools")]
         [SerializeField] private GameObject[] pickaxes;
         [SerializeField] private GameObject[] axes;
+        
+        // UI
+        [Header("UI")] 
+        [SerializeField] private GameObject resourceStorageUi;
 
         #endregion
 
@@ -92,14 +96,19 @@ namespace Eggland
 
         private void Update()
         {
-            UpdateCracks();
-            ControlMovement();
-            
-            ApplyToolFacing();
-            SwitchTools();
-            DisplayActiveTool();
-            
-            Gather();
+            if (!resourceStorageUi.activeSelf)
+            {
+                UpdateCracks();
+                ControlMovement();
+
+                ApplyToolFacing();
+                SwitchTools();
+                DisplayActiveTool();
+
+                Gather();
+            }
+
+            HandleResourceStorage();
         }
 
         #region Tools & Gathering
@@ -398,6 +407,20 @@ namespace Eggland
             };
 
             spriteRenderer.sprite = sprite;
+        }
+
+        #endregion
+
+        #region UI
+
+        private void HandleResourceStorage()
+        {
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R))
+            {
+                resourceStorageUi.SetActive(!resourceStorageUi.activeSelf);
+                
+                if (resourceStorageUi.activeSelf) FindObjectOfType<ResourceStorage>().Synchronize();
+            }
         }
 
         #endregion
