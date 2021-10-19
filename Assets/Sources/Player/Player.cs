@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Eggland
@@ -99,6 +100,8 @@ namespace Eggland
             DisplayActiveTool();
             
             Gather();
+            
+            if (Input.GetKeyDown(KeyCode.U)) Upgrade(GetActiveTool().type);
         }
 
         #region Tools & Gathering
@@ -287,7 +290,50 @@ namespace Eggland
 
             currentTool = 0;
         }
-        
+
+        public bool CanUpgrade(ToolType type)
+        {
+            return type == ToolType.AXE ? currentAxe != null : currentPickaxe != null;
+        }
+
+        private GameObject GetToolPrefabOfType(ToolType type) =>
+            type == ToolType.AXE ? currentAxePrefab : currentPickaxePrefab;
+
+        private GameObject[] GetPrefabListOfType(ToolType type) => type == ToolType.AXE ? axes : pickaxes;
+
+        public void Upgrade(ToolType type)
+        {
+            // Resolve the next index in the prefab array for upgrading
+            var list = GetPrefabListOfType(type);
+            var prefab = GetToolPrefabOfType(type);
+            var currentIndex = IndexOf(list, prefab);
+            var nextIndex = currentIndex + 1;
+            
+            // Return if the tool is already maxed out
+            if (nextIndex >= list.Length) return;
+
+            // Get the next prefab and deactivate the current tool's GameObject
+            var nextPrefab = list[nextIndex];
+            Destroy(GetActiveTool().gameObject);
+
+            // Refresh references
+            if (type == ToolType.AXE)
+            {
+                currentAxe = null;
+                currentAxePrefab = nextPrefab;
+            }
+            else
+            {
+                currentPickaxe = null;
+                currentPickaxePrefab = nextPrefab;
+            }
+            
+            // Call setup and revert active tool to original
+            var tmp = currentTool;
+            SetupTools();
+            currentTool = tmp;
+        }
+
         #endregion
 
         #region Health
@@ -400,6 +446,16 @@ namespace Eggland
         }
 
         #endregion
+
+        private static int IndexOf<T>(IReadOnlyList<T> array, T element)
+        {
+            for (var i = 0; i < array.Count; ++i)
+            {
+                if (array[i].Equals(element)) return i;
+            }
+            
+            throw new ApplicationException("Not found");
+        }
     }
 
     public enum Facing
