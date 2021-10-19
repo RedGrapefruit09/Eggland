@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using Eggland.Gathering;
 using UnityEngine;
 
 namespace Eggland
@@ -50,6 +50,10 @@ namespace Eggland
         [Header("Tools")]
         [SerializeField] private GameObject[] pickaxes;
         [SerializeField] private GameObject[] axes;
+        
+        // UI
+        [Header("UI")] 
+        [SerializeField] private GameObject resourceStorageUi;
 
         #endregion
 
@@ -92,16 +96,19 @@ namespace Eggland
 
         private void Update()
         {
-            UpdateCracks();
-            ControlMovement();
-            
-            ApplyToolFacing();
-            SwitchTools();
-            DisplayActiveTool();
-            
-            Gather();
-            
-            if (Input.GetKeyDown(KeyCode.U)) Upgrade(GetActiveTool().type);
+            if (!resourceStorageUi.activeSelf)
+            {
+                UpdateCracks();
+                ControlMovement();
+
+                ApplyToolFacing();
+                SwitchTools();
+                DisplayActiveTool();
+
+                Gather();
+            }
+
+            HandleResourceStorage();
         }
 
         #region Tools & Gathering
@@ -290,50 +297,7 @@ namespace Eggland
 
             currentTool = 0;
         }
-
-        public bool CanUpgrade(ToolType type)
-        {
-            return type == ToolType.AXE ? currentAxe != null : currentPickaxe != null;
-        }
-
-        private GameObject GetToolPrefabOfType(ToolType type) =>
-            type == ToolType.AXE ? currentAxePrefab : currentPickaxePrefab;
-
-        private GameObject[] GetPrefabListOfType(ToolType type) => type == ToolType.AXE ? axes : pickaxes;
-
-        public void Upgrade(ToolType type)
-        {
-            // Resolve the next index in the prefab array for upgrading
-            var list = GetPrefabListOfType(type);
-            var prefab = GetToolPrefabOfType(type);
-            var currentIndex = IndexOf(list, prefab);
-            var nextIndex = currentIndex + 1;
-            
-            // Return if the tool is already maxed out
-            if (nextIndex >= list.Length) return;
-
-            // Get the next prefab and deactivate the current tool's GameObject
-            var nextPrefab = list[nextIndex];
-            Destroy(GetActiveTool().gameObject);
-
-            // Refresh references
-            if (type == ToolType.AXE)
-            {
-                currentAxe = null;
-                currentAxePrefab = nextPrefab;
-            }
-            else
-            {
-                currentPickaxe = null;
-                currentPickaxePrefab = nextPrefab;
-            }
-            
-            // Call setup and revert active tool to original
-            var tmp = currentTool;
-            SetupTools();
-            currentTool = tmp;
-        }
-
+        
         #endregion
 
         #region Health
@@ -447,15 +411,19 @@ namespace Eggland
 
         #endregion
 
-        private static int IndexOf<T>(IReadOnlyList<T> array, T element)
+        #region UI
+
+        private void HandleResourceStorage()
         {
-            for (var i = 0; i < array.Count; ++i)
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R))
             {
-                if (array[i].Equals(element)) return i;
+                resourceStorageUi.SetActive(!resourceStorageUi.activeSelf);
+                
+                if (resourceStorageUi.activeSelf) FindObjectOfType<ResourceStorage>().Synchronize();
             }
-            
-            throw new ApplicationException("Not found");
         }
+
+        #endregion
     }
 
     public enum Facing

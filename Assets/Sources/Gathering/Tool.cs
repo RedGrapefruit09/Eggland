@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Eggland
+namespace Eggland.Gathering
 {
     /// <summary>
     /// A tool is required to gather a gatherable.

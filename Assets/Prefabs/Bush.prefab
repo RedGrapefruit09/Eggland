@@ -169,6 +169,14 @@ MonoBehaviour:
   - {fileID: 5359651499297864829, guid: 0cfafa197d0887d4ebf16f9a1a3cd597, type: 3}
   type: 0
   overlayRenderer: {fileID: 339461464059513813}
+  drop:
+    key: 6
+    value:
+      min: 1
+      max: 3
+  dependentDrops:
+    pairs: []
+    error: 0
 --- !u!1 &3544551181025121204
 GameObject:
   m_ObjectHideFlags: 0

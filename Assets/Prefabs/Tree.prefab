@@ -220,6 +220,14 @@ MonoBehaviour:
   overlays: []
   type: 1
   overlayRenderer: {fileID: 0}
+  drop:
+    key: 0
+    value:
+      min: 1
+      max: 4
+  dependentDrops:
+    pairs: []
+    error: 0
   treeAnimations:
     pairs:
     - key: oak_tree

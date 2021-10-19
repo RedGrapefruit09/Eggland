@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Eggland
+namespace Eggland.Gathering
 {
     /// <summary>
     /// A custom gatherable script for rocks, supporting overlays for small, medium and large types of rocks.
