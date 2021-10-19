@@ -50,6 +50,7 @@ namespace Eggland
         // UI
         [Header("UI")] 
         [SerializeField] private GameObject resourceStorageUi;
+        [SerializeField] private GameObject upgradeButton;
 
         #endregion
 
@@ -105,7 +106,12 @@ namespace Eggland
 
                 Gather();
                 
-                if (Input.GetKeyDown(KeyCode.U)) Upgrade(GetActiveTool().type);
+                DisplayUpgradeUI();
+                UpgradeWithHotkey();
+            }
+            else
+            {
+                upgradeButton.SetActive(false); // upgrade button is unavailable while interacting with other UI
             }
 
             HandleResourceStorage();
@@ -290,6 +296,10 @@ namespace Eggland
             GetActiveTool().OnUse();
         }
 
+        #endregion
+
+        #region Tool upgrades
+
         public void NotifyDestroyed(GameObject tool)
         {
             if (tool == currentAxe) currentAxe = null;
@@ -306,7 +316,9 @@ namespace Eggland
         private GameObject GetToolPrefabOfType(ToolType type) =>
             type == ToolType.AXE ? currentAxePrefab : currentPickaxePrefab;
 
-        public void Upgrade(ToolType type)
+        public void Upgrade() => UpgradeInternal(GetActiveTool().type);
+
+        private void UpgradeInternal(ToolType type)
         {
             // Resolve the next index in the prefab array for upgrading
             var list = upgradeManager.GetPrefabArray(type);
@@ -317,8 +329,7 @@ namespace Eggland
             // Return if the tool is already maxed out or cannot upgrade
             if (nextIndex >= list.Length) return;
             if (!upgradeManager.CanUpgrade(currentIndex, type)) return;
-            
-            Debug.Log("upgrading");
+            upgradeManager.CountUpgrade(currentIndex, type);
 
             // Get the next prefab and deactivate the current tool's GameObject
             var nextPrefab = list[nextIndex];
@@ -340,6 +351,43 @@ namespace Eggland
             SetupTools(false);
         }
 
+        private void DisplayUpgradeUI()
+        {
+            if (GetActiveTool() == null)
+            {
+                upgradeButton.SetActive(false);
+                return;
+            }
+            
+            var type = GetActiveTool().type;
+
+            int ActiveToolIndex()
+            {
+                var list = upgradeManager.GetPrefabArray(type);
+                var prefab = GetToolPrefabOfType(type);
+
+                return IndexOf(list, prefab);
+            }
+
+            upgradeButton.SetActive(upgradeManager.CanUpgrade(ActiveToolIndex(), type));
+        }
+
+        private void UpgradeWithHotkey()
+        {
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.U)) Upgrade();
+        }
+
+        public void InitToolsFromSerialized()
+        {
+            currentAxe = null;
+            currentPickaxe = null;
+            
+            currentAxePrefab = upgradeManager.GetAxePrefab(upgradeManager.AxeLevel);
+            currentPickaxePrefab = upgradeManager.GetPickaxePrefab(upgradeManager.PickaxeLevel);
+            
+            SetupTools(false);
+        }
+        
         #endregion
 
         #region Health
