@@ -36,6 +36,8 @@ namespace Eggland
 
         public void Add(ResourceType type, int amount) => state[type] += amount;
 
+        public void Use(ResourceType type, int amount) => state[type] -= amount;
+
         public void Synchronize()
         {
             foreach (var obj in FindObjectsOfType<ResourceUICount>())

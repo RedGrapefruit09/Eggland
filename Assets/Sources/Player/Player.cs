@@ -46,12 +46,7 @@ namespace Eggland
         [SerializeField] private Sprite downLookSprite;
         [SerializeField] private Sprite rightLookSprite;
         [SerializeField] private Sprite leftLookSprite;
-        
-        // Tools
-        [Header("Tools")]
-        [SerializeField] private GameObject[] pickaxes;
-        [SerializeField] private GameObject[] axes;
-        
+
         // UI
         [Header("UI")] 
         [SerializeField] private GameObject resourceStorageUi;
@@ -71,6 +66,7 @@ namespace Eggland
         private int currentTool;
         private GameObject currentPickaxe;
         private GameObject currentAxe;
+        private UpgradeManager upgradeManager;
         
         // Gathering
         private GameObject gatherSelection;
@@ -81,12 +77,13 @@ namespace Eggland
         private void Awake()
         {
             cracksObject.GetComponent<SpriteRenderer>().sprite = null;
+            upgradeManager = FindObjectOfType<UpgradeManager>();
             
             sprint = maximalSprint; // initialize sprint
             spriteRenderer = GetComponent<SpriteRenderer>();
 
-            currentPickaxePrefab = pickaxes[0];
-            currentAxePrefab = axes[0];
+            currentPickaxePrefab = upgradeManager.GetPickaxePrefab(0);
+            currentAxePrefab = upgradeManager.GetAxePrefab(0);
             SetupTools();
         }
 
@@ -107,6 +104,8 @@ namespace Eggland
                 DisplayActiveTool();
 
                 Gather();
+                
+                if (Input.GetKeyDown(KeyCode.U)) Upgrade(GetActiveTool().type);
             }
 
             HandleResourceStorage();
@@ -115,7 +114,7 @@ namespace Eggland
         #region Tools & Gathering
 
         // setup the tool prefabs as children of this object
-        private void SetupTools()
+        private void SetupTools(bool resetCurrentTool = true)
         {
             // instantiate the prefabs, deactivate them and assign references
 
@@ -127,7 +126,7 @@ namespace Eggland
             pickaxe.SetActive(false);
             currentPickaxe = pickaxe;
 
-            currentTool = 0; // set current tool to be none/0
+            if (resetCurrentTool) currentTool = 0; // set current tool to be none/0
         }
 
         // rotate and position the tools according to the player's facing
@@ -307,18 +306,19 @@ namespace Eggland
         private GameObject GetToolPrefabOfType(ToolType type) =>
             type == ToolType.AXE ? currentAxePrefab : currentPickaxePrefab;
 
-        private GameObject[] GetPrefabListOfType(ToolType type) => type == ToolType.AXE ? axes : pickaxes;
-
         public void Upgrade(ToolType type)
         {
             // Resolve the next index in the prefab array for upgrading
-            var list = GetPrefabListOfType(type);
+            var list = upgradeManager.GetPrefabArray(type);
             var prefab = GetToolPrefabOfType(type);
             var currentIndex = IndexOf(list, prefab);
             var nextIndex = currentIndex + 1;
             
-            // Return if the tool is already maxed out
+            // Return if the tool is already maxed out or cannot upgrade
             if (nextIndex >= list.Length) return;
+            if (!upgradeManager.CanUpgrade(currentIndex, type)) return;
+            
+            Debug.Log("upgrading");
 
             // Get the next prefab and deactivate the current tool's GameObject
             var nextPrefab = list[nextIndex];
@@ -336,10 +336,8 @@ namespace Eggland
                 currentPickaxePrefab = nextPrefab;
             }
             
-            // Call setup and revert active tool to original
-            var tmp = currentTool;
-            SetupTools();
-            currentTool = tmp;
+            // Call setup
+            SetupTools(false);
         }
 
         #endregion
