@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Eggland.Gathering;
+using Eggland.Tools;
 using UnityEngine;
 
 namespace Eggland
@@ -68,6 +69,7 @@ namespace Eggland
         private GameObject currentPickaxe;
         private GameObject currentAxe;
         private UpgradeManager upgradeManager;
+        private ResourceStorage resourceStorage;
         
         // Gathering
         private GameObject gatherSelection;
@@ -81,6 +83,7 @@ namespace Eggland
         {
             cracksObject.GetComponent<SpriteRenderer>().sprite = null;
             upgradeManager = FindObjectOfType<UpgradeManager>();
+            resourceStorage = FindObjectOfType<ResourceStorage>();
             markedGrass = new List<GameObject>();
             
             sprint = maximalSprint; // initialize sprint

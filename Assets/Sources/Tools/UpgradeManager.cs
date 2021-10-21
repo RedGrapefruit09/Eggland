@@ -1,9 +1,8 @@
 using System;
 using System.IO;
-using Eggland.Gathering;
 using UnityEngine;
 
-namespace Eggland
+namespace Eggland.Tools
 {
     public class UpgradeManager : MonoBehaviour
     {
