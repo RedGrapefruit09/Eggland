@@ -72,6 +72,8 @@ namespace Eggland
         // Gathering
         private GameObject gatherSelection;
         [HideInInspector] public bool IsGathering { get; set; }
+        [HideInInspector] public GameObject Grass { private get; set; }
+        private List<GameObject> markedGrass;
 
         #endregion
 
@@ -79,6 +81,7 @@ namespace Eggland
         {
             cracksObject.GetComponent<SpriteRenderer>().sprite = null;
             upgradeManager = FindObjectOfType<UpgradeManager>();
+            markedGrass = new List<GameObject>();
             
             sprint = maximalSprint; // initialize sprint
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -99,6 +102,7 @@ namespace Eggland
             {
                 UpdateCracks();
                 ControlMovement();
+                HandleGrass();
 
                 ApplyToolFacing();
                 SwitchTools();
@@ -307,11 +311,6 @@ namespace Eggland
 
             currentTool = 0;
         }
-        
-        public bool CanUpgrade(ToolType type)
-        {
-            return type == ToolType.AXE ? currentAxe != null : currentPickaxe != null;
-        }
 
         private GameObject GetToolPrefabOfType(ToolType type) =>
             type == ToolType.AXE ? currentAxePrefab : currentPickaxePrefab;
@@ -497,6 +496,25 @@ namespace Eggland
             };
 
             spriteRenderer.sprite = sprite;
+        }
+
+        private void HandleGrass()
+        {
+            // Mark grass for fallout
+            if (Grass != null && !markedGrass.Contains(Grass))
+            {
+                Grass.GetComponent<Grass>().StartFallout();
+                markedGrass.Add(Grass);
+            }
+
+            // Game over if not on grass
+            if (Grass == null)
+            {
+                Application.Quit();
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.ExitPlaymode();
+#endif
+            }
         }
 
         #endregion

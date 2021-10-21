@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6990428888901214946}
   - component: {fileID: 3888798143431223982}
+  - component: {fileID: 2494370517258227607}
+  - component: {fileID: 454903099782147972}
   m_Layer: 0
   m_Name: Grass
-  m_TagString: Untagged
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,3 +84,85 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &2494370517258227607
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788597669756173965}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &454903099782147972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788597669756173965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dc3e19640ee0e04386d39f052310158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  falloutAnimations:
+    pairs:
+    - key: 0
+      value:
+      - {fileID: 5268741124399560279, guid: d046b841037a47b41988020389cbbf2c, type: 3}
+      - {fileID: -7203974330151606887, guid: d046b841037a47b41988020389cbbf2c, type: 3}
+      - {fileID: -5548703041557832413, guid: d046b841037a47b41988020389cbbf2c, type: 3}
+      - {fileID: -1402684961664373976, guid: d046b841037a47b41988020389cbbf2c, type: 3}
+      - {fileID: 7888259622035577236, guid: d046b841037a47b41988020389cbbf2c, type: 3}
+      - {fileID: -4177302114415603631, guid: d046b841037a47b41988020389cbbf2c, type: 3}
+      - {fileID: -3651237197990705199, guid: d046b841037a47b41988020389cbbf2c, type: 3}
+      - {fileID: 2098858281968750153, guid: d046b841037a47b41988020389cbbf2c, type: 3}
+    - key: 1
+      value:
+      - {fileID: 1017667561084594933, guid: bdc2b094b5b2f5441bd28eadaa2fc02a, type: 3}
+      - {fileID: -1891251664435652285, guid: bdc2b094b5b2f5441bd28eadaa2fc02a, type: 3}
+      - {fileID: 586894517396563835, guid: bdc2b094b5b2f5441bd28eadaa2fc02a, type: 3}
+      - {fileID: -5625287570912539824, guid: bdc2b094b5b2f5441bd28eadaa2fc02a, type: 3}
+      - {fileID: 8305632158479390167, guid: bdc2b094b5b2f5441bd28eadaa2fc02a, type: 3}
+      - {fileID: 2320930732447885852, guid: bdc2b094b5b2f5441bd28eadaa2fc02a, type: 3}
+      - {fileID: -4285513471477479240, guid: bdc2b094b5b2f5441bd28eadaa2fc02a, type: 3}
+      - {fileID: -5638030560617094684, guid: bdc2b094b5b2f5441bd28eadaa2fc02a, type: 3}
+    - key: 2
+      value:
+      - {fileID: 1179246514371688420, guid: ce30986e9c369204cb221faa26cb02a2, type: 3}
+      - {fileID: 5650617997803731961, guid: ce30986e9c369204cb221faa26cb02a2, type: 3}
+      - {fileID: -3099824451833774890, guid: ce30986e9c369204cb221faa26cb02a2, type: 3}
+      - {fileID: 322274301798060426, guid: ce30986e9c369204cb221faa26cb02a2, type: 3}
+      - {fileID: -7091491211701946127, guid: ce30986e9c369204cb221faa26cb02a2, type: 3}
+      - {fileID: -7243950223114598121, guid: ce30986e9c369204cb221faa26cb02a2, type: 3}
+      - {fileID: -1820708708584365570, guid: ce30986e9c369204cb221faa26cb02a2, type: 3}
+      - {fileID: 6211972161428751558, guid: ce30986e9c369204cb221faa26cb02a2, type: 3}
+    - key: 3
+      value:
+      - {fileID: -2101913937110832086, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
+      - {fileID: -6850892257520649472, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
+      - {fileID: 69514571154284511, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
+      - {fileID: -714582762180713614, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
+      - {fileID: 7000646350123895936, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
+      - {fileID: 5049650881399686500, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
+      - {fileID: 5751394929819467981, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
+      - {fileID: -9155075789227479974, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
+    error: 0
+  falloutSpeed: 3

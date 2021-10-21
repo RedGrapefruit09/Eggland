@@ -10,18 +10,39 @@ namespace Eggland
         // Whether the object is currently colliding
         [HideInInspector] public bool colliding;
 
+        private Player player;
+
+        private void Awake()
+        {
+            player = transform.parent.gameObject.GetComponent<Player>();
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("GatherZone")) return; // ignore gatherzones
-            
-            colliding = true;
+
+            if (other.gameObject.CompareTag("Grass"))
+            {
+                player.Grass = other.gameObject;
+            }
+            else
+            {
+                colliding = true;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("GatherZone")) return; // ignore gatherzones
             
-            colliding = false;
+            if (other.gameObject.CompareTag("Grass"))
+            {
+                player.Grass = other.gameObject;
+            }
+            else
+            {
+                colliding = false;
+            }
         }
     }
 }
