@@ -52,6 +52,7 @@ namespace Eggland
         [Header("UI")] 
         [SerializeField] private GameObject resourceStorageUi;
         [SerializeField] private GameObject upgradeButton;
+        [SerializeField] private GameObject repairButton;
 
         #endregion
 
@@ -116,12 +117,14 @@ namespace Eggland
                 Gather();
                 
                 DisplayUpgradeUI();
+                DisplayRepairUI();
                 UpgradeWithHotkey();
                 RepairWithHotkey();
             }
             else
             {
                 upgradeButton.SetActive(false); // upgrade button is unavailable while interacting with other UI
+                repairButton.SetActive(false);
             }
 
             HandleResourceStorage();
@@ -400,6 +403,7 @@ namespace Eggland
         private bool CanRepair()
         {
             if (GetActiveTool() == null) return false;
+            if (GetActiveTool().CurrentDurability() == GetActiveTool().durability) return false;
 
             var resourceType = ResourceStorage.GetToolResource(GetActiveTool());
             var requirement = repairManager.GetRequirement(resourceType);
@@ -407,7 +411,7 @@ namespace Eggland
             return resourceStorage.Get(resourceType) >= requirement;
         }
         
-        private void Repair()
+        public void Repair()
         {
             var resourceType = ResourceStorage.GetToolResource(GetActiveTool());
             repairManager.IncrementRequirement(resourceType);
@@ -421,6 +425,11 @@ namespace Eggland
             {
                 if (CanRepair()) Repair();
             }
+        }
+
+        private void DisplayRepairUI()
+        {
+            repairButton.SetActive(CanRepair());
         }
 
         #endregion
