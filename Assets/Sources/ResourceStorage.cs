@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Eggland.Tools;
 using UnityEngine;
 
 namespace Eggland
@@ -66,6 +67,19 @@ namespace Eggland
             var raw = JsonUtility.ToJson(state);
             
             File.WriteAllText(path, raw);
+        }
+
+        public static ResourceType GetToolResource(Tool tool)
+        {
+            var spriteName = tool.GetComponent<SpriteRenderer>().sprite.name;
+
+            if (spriteName.Contains("bronze")) return ResourceType.BRONZE;
+            if (spriteName.Contains("iron")) return ResourceType.IRON;
+            if (spriteName.Contains("diamond")) return ResourceType.DIAMOND;
+            if (spriteName.Contains("emerald")) return ResourceType.EMERALD;
+            if (spriteName.Contains("ruby")) return ResourceType.RUBY;
+            
+            throw new ApplicationException();
         }
     }
 

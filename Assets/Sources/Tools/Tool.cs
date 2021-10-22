@@ -35,6 +35,12 @@ namespace Eggland.Tools
         {
             currentDurability -= 25;
         }
+
+        public void Repair()
+        {
+            currentDurability += 50;
+            if (currentDurability > durability) currentDurability = durability;
+        }
     }
 
     /// <summary>

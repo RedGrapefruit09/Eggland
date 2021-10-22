@@ -70,6 +70,7 @@ namespace Eggland
         private GameObject currentAxe;
         private UpgradeManager upgradeManager;
         private ResourceStorage resourceStorage;
+        private RepairManager repairManager;
         
         // Gathering
         private GameObject gatherSelection;
@@ -84,6 +85,7 @@ namespace Eggland
             cracksObject.GetComponent<SpriteRenderer>().sprite = null;
             upgradeManager = FindObjectOfType<UpgradeManager>();
             resourceStorage = FindObjectOfType<ResourceStorage>();
+            repairManager = FindObjectOfType<RepairManager>();
             markedGrass = new List<GameObject>();
             
             sprint = maximalSprint; // initialize sprint
@@ -115,6 +117,7 @@ namespace Eggland
                 
                 DisplayUpgradeUI();
                 UpgradeWithHotkey();
+                RepairWithHotkey();
             }
             else
             {
@@ -392,6 +395,36 @@ namespace Eggland
         
         #endregion
 
+        #region Tool repair
+
+        private bool CanRepair()
+        {
+            if (GetActiveTool() == null) return false;
+
+            var resourceType = ResourceStorage.GetToolResource(GetActiveTool());
+            var requirement = repairManager.GetRequirement(resourceType);
+
+            return resourceStorage.Get(resourceType) >= requirement;
+        }
+        
+        private void Repair()
+        {
+            var resourceType = ResourceStorage.GetToolResource(GetActiveTool());
+            repairManager.IncrementRequirement(resourceType);
+            GetActiveTool().Repair();
+            resourceStorage.Use(resourceType, repairManager.GetRequirement(resourceType));
+        }
+
+        private void RepairWithHotkey()
+        {
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R))
+            {
+                if (CanRepair()) Repair();
+            }
+        }
+
+        #endregion
+        
         #region Health
 
         private void UpdateCracks()
