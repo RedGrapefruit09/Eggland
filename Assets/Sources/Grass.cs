@@ -5,8 +5,8 @@ using UnityEngine;
 public class Grass : MonoBehaviour
 {
     [SerializeField] private SerializedDictionary<Biome, Sprite[]> falloutAnimations;
-    [SerializeField] private float falloutSpeed;
-    
+    [SerializeField] private SerializedDictionary<Biome, int> falloutTimers;
+
     private Generator generator;
     private SpriteRenderer spriteRenderer;
 
@@ -28,7 +28,7 @@ public class Grass : MonoBehaviour
         foreach (var frame in falloutAnimation)
         {
             spriteRenderer.sprite = frame;
-            yield return new WaitForSeconds(falloutSpeed);
+            yield return new WaitForSeconds(falloutTimers[generator.biome]);
         }
         
         Destroy(gameObject);

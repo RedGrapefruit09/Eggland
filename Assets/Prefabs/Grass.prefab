@@ -165,4 +165,14 @@ MonoBehaviour:
       - {fileID: 5751394929819467981, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
       - {fileID: -9155075789227479974, guid: fb875e729de03a74b85c6f3ff156be13, type: 3}
     error: 0
-  falloutSpeed: 3
+  falloutTimers:
+    pairs:
+    - key: 0
+      value: 10
+    - key: 1
+      value: 7
+    - key: 2
+      value: 5
+    - key: 3
+      value: 3
+    error: 0
