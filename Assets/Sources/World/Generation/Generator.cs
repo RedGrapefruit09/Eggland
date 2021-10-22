@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Eggland.World.Generation
@@ -74,7 +76,7 @@ namespace Eggland.World.Generation
 
         #region Generation & Cleanup
 
-        private void Generate()
+        public void Generate()
         {
             Debug.Log($"World generation started. Layer size - {layerSize}, biome - {biome}");
 
@@ -89,20 +91,11 @@ namespace Eggland.World.Generation
             Debug.Log("Created world boundaries.");
         }
 
-        private void Clean()
+        public void Clean()
         {
             // Destroy all placements in the list
-            foreach (var placement in placements)
-            {
-                if (placement != null)
-                {
-                    Destroy(placement);
-                }
-                else
-                {
-                    Debug.LogError("Unexpected behavior: null placement!");
-                }
-            }
+            foreach (var placement in placements.Where(placement => placement != null)) Destroy(placement);
+            placements.Clear();
 
             Debug.Log("Cleanup successful");
         }
@@ -130,6 +123,20 @@ namespace Eggland.World.Generation
             var collider = clone.GetComponent<BoxCollider2D>();
             collider.offset = Vector2.zero;
             collider.size = colliderSize;
+        }
+
+        public bool ShouldGameOver() => biome == Biome.WINTER;
+
+        public Biome NextBiome()
+        {
+            return biome switch
+            {
+                Biome.SPRING => Biome.SUMMER,
+                Biome.SUMMER => Biome.AUTUMN,
+                Biome.AUTUMN => Biome.WINTER,
+                Biome.WINTER => throw new ApplicationException(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

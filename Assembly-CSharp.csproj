@@ -62,15 +62,15 @@
      <Compile Include="Assets\Sources\Gathering\TreeGatherable.cs" />
      <Compile Include="Assets\Sources\ResourceStorage.cs" />
      <Compile Include="Assets\Sources\World\Generation\RandomFeature.cs" />
+     <Compile Include="Assets\Sources\Tools\RepairManager.cs" />
      <Compile Include="Assets\Sources\Player\CollisionDetector.cs" />
+     <Compile Include="Assets\Sources\Tools\ToolDurabilitySync.cs" />
      <Compile Include="Assets\Sources\Player\Player.cs" />
      <Compile Include="Assets\Sources\ResourceUICount.cs" />
      <Compile Include="Assets\Sources\World\DestroyOnOverlap.cs" />
      <Compile Include="Assets\Sources\Player\CameraFollow.cs" />
      <Compile Include="Assets\Sources\World\Generation\Feature.cs" />
      <Compile Include="Assets\Sources\Gathering\Gatherable.cs" />
-     <Compile Include="Assets\Sources\Tools\RepairManager.cs" />
-     <Compile Include="Assets\Sources\Tools\ToolDurabilitySync.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

@@ -13,7 +13,7 @@ namespace Eggland.World
         private void OnCollisionEnter2D(Collision2D other)
         {
             // Skip if colliding with the player or if the script has been given immunity
-            if (other.gameObject.CompareTag("Player") || immune) return;
+            if (immune || other.gameObject.CompareTag("GatherZone")) return;
             
             // If there's another prop, set it to be immune, so only one tile is removed instead of two
             var otherComponent = other.gameObject.GetComponent<DestroyOnOverlap>();

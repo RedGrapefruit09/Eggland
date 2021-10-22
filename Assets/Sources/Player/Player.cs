@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Eggland.Gathering;
 using Eggland.Tools;
+using Eggland.World.Generation;
 using UnityEngine;
 
 namespace Eggland
@@ -59,6 +60,7 @@ namespace Eggland
         #region Runtime properties
 
         private SpriteRenderer spriteRenderer;
+        private Generator generator;
         
         private float sprint; // current sprint value
         private Facing facing = Facing.DOWN;
@@ -87,6 +89,7 @@ namespace Eggland
             upgradeManager = FindObjectOfType<UpgradeManager>();
             resourceStorage = FindObjectOfType<ResourceStorage>();
             repairManager = FindObjectOfType<RepairManager>();
+            generator = FindObjectOfType<Generator>();
             markedGrass = new List<GameObject>();
             
             sprint = maximalSprint; // initialize sprint
@@ -552,13 +555,22 @@ namespace Eggland
                 markedGrass.Add(Grass);
             }
 
-            // Game over if not on grass
             if (Grass == null)
             {
-                Application.Quit();
+                generator.Clean();
+                
+                if (generator.ShouldGameOver())
+                {
+                    Application.Quit();
 #if UNITY_EDITOR
-                UnityEditor.EditorApplication.ExitPlaymode();
+                    UnityEditor.EditorApplication.ExitPlaymode();
 #endif
+                }
+                else
+                {
+                    generator.biome = generator.NextBiome();
+                    generator.Generate();
+                }
             }
         }
 
