@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Eggland.Gathering;
 using Eggland.Tools;
 using Eggland.World.Generation;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Eggland
 {
@@ -52,8 +55,11 @@ namespace Eggland
         // UI
         [Header("UI")] 
         [SerializeField] private GameObject resourceStorageUi;
+        [SerializeField] private GameObject gameOverUi;
         [SerializeField] private GameObject upgradeButton;
         [SerializeField] private GameObject repairButton;
+        [SerializeField] private Text scoreText;
+        [SerializeField] private Text bestScoreText;
 
         #endregion
 
@@ -561,10 +567,15 @@ namespace Eggland
                 
                 if (generator.ShouldGameOver())
                 {
-                    Application.Quit();
-#if UNITY_EDITOR
-                    UnityEditor.EditorApplication.ExitPlaymode();
-#endif
+                    var score = resourceStorage.CalculateGameScore();
+                    var bestScore = GetBestScore();
+                    
+                    if (score > bestScore) WriteBestScore(score);
+                    
+                    scoreText.text = $"Score: {score}";
+                    bestScoreText.text = $"Best score: {bestScore}";
+                    generator.biome = Biome.SPRING;
+                    gameOverUi.SetActive(true);
                 }
                 else
                 {
@@ -572,6 +583,27 @@ namespace Eggland
                     generator.Generate();
                 }
             }
+        }
+
+        private int GetBestScore()
+        {
+            var path = $"{Application.persistentDataPath}/best_score.bin";
+            if (!File.Exists(path))
+            {
+                WriteBestScore(0);
+                return 0;
+            }
+
+            var text = File.ReadAllText(path);
+            return Convert.ToInt32(text);
+        }
+
+        private void WriteBestScore(int score)
+        {
+            var path = $"{Application.persistentDataPath}/best_score.bin";
+            var str = Convert.ToString(score);
+            
+            File.WriteAllText(path, str);
         }
 
         #endregion
@@ -586,6 +618,19 @@ namespace Eggland
                 
                 if (resourceStorageUi.activeSelf) FindObjectOfType<ResourceStorage>().Synchronize();
             }
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.ExitPlaymode();
+#endif
+        }
+
+        public void Replay()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         #endregion

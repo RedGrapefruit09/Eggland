@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Eggland.Tools;
 using UnityEngine;
 
@@ -80,6 +81,28 @@ namespace Eggland
             if (spriteName.Contains("ruby")) return ResourceType.RUBY;
             
             throw new ApplicationException();
+        }
+
+        public int CalculateGameScore()
+        {
+            return state.Sum(pair => ScoreForType(pair.Key) * pair.Value);
+        }
+
+        private static int ScoreForType(ResourceType type)
+        {
+            return type switch
+            {
+                ResourceType.WOOD => 1,
+                ResourceType.COAL => 2,
+                ResourceType.BRONZE => 3,
+                ResourceType.IRON => 5,
+                ResourceType.DIAMOND => 7,
+                ResourceType.EMERALD => 9,
+                ResourceType.RUBY => 11,
+                ResourceType.BUSH_LEAF => 2,
+                ResourceType.ROCK => 3,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 

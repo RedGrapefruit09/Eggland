@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace Eggland.Tools
@@ -31,6 +32,8 @@ namespace Eggland.Tools
 
         public bool CanUpgrade(int index, ToolType type)
         {
+            if (axeUpgrades.Length == index) return false;
+            
             var upgrade = type == ToolType.AXE ? axeUpgrades[index] : pickaxeUpgrades[index];
             var storedAmount = storage.Get(upgrade.key);
 

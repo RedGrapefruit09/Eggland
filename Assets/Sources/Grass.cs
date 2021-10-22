@@ -28,7 +28,7 @@ public class Grass : MonoBehaviour
         foreach (var frame in falloutAnimation)
         {
             spriteRenderer.sprite = frame;
-            yield return new WaitForSeconds(falloutTimers[generator.biome]);
+            yield return new WaitForSeconds(1.5f);
         }
         
         Destroy(gameObject);
