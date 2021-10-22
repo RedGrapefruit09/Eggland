@@ -249,7 +249,7 @@ namespace Eggland
 
         // returns the reference to the tool script of the current used tool
         // if the player hasn't a tool equipped, a null reference is returned
-        private Tool GetActiveTool()
+        public Tool GetActiveTool()
         {
             return currentTool switch
             {

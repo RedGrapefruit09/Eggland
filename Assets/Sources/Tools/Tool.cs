@@ -41,6 +41,8 @@ namespace Eggland.Tools
             currentDurability += 50;
             if (currentDurability > durability) currentDurability = durability;
         }
+
+        public int CurrentDurability() => currentDurability;
     }
 
     /// <summary>
