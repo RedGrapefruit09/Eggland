@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 
 namespace Eggland.Tools
@@ -21,9 +18,6 @@ namespace Eggland.Tools
         {
             storage = FindObjectOfType<ResourceStorage>();
             player = FindObjectOfType<Player>();
-            
-            ReadFromFile();
-            player.InitToolsFromSerialized();
         }
         
         public GameObject GetAxePrefab(int index) => axes[index];
@@ -53,30 +47,6 @@ namespace Eggland.Tools
             {
                 PickaxeLevel++;
             }
-        }
-
-        private void OnApplicationQuit()
-        {
-            WriteToFile();
-        }
-
-        private void ReadFromFile()
-        {
-            var path = $"{Application.persistentDataPath}/tools.bin";
-            if (!File.Exists(path)) return;
-
-            var raw = File.ReadAllText(path);
-            var splits = raw.Split(';');
-            AxeLevel = Convert.ToInt32(splits[0]);
-            PickaxeLevel = Convert.ToInt32(splits[1]);
-        }
-
-        private void WriteToFile()
-        {
-            var path = $"{Application.persistentDataPath}/tools.bin";
-            var raw = $"{AxeLevel};{PickaxeLevel}";
-            
-            File.WriteAllText(path, raw);
         }
     }
 }

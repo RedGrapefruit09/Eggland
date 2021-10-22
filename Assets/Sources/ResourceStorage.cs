@@ -25,13 +25,6 @@ namespace Eggland
                 [ResourceType.RUBY] = 0,
                 [ResourceType.ROCK] = 0
             };
-            
-            ReadFromFile();
-        }
-
-        private void OnApplicationQuit()
-        {
-            WriteToFile();
         }
 
         public int Get(ResourceType type) => state[type];
@@ -46,28 +39,6 @@ namespace Eggland
             {
                 obj.Sync(state[obj.type]);
             }
-        }
-
-        private void ReadFromFile()
-        {
-            var path = $"{Application.persistentDataPath}/storage.json";
-            if (!File.Exists(path)) return;
-            
-            var raw = File.ReadAllText(path);
-            var obj = JsonUtility.FromJson<SerializedDictionary<ResourceType, int>>(raw);
-
-            foreach (var pair in obj)
-            {
-                state[pair.Key] = pair.Value;
-            }
-        }
-
-        private void WriteToFile()
-        {
-            var path = $"{Application.persistentDataPath}/storage.json";
-            var raw = JsonUtility.ToJson(state, true);
-            
-            File.WriteAllText(path, raw);
         }
 
         public static ResourceType GetToolResource(Tool tool)
