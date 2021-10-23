@@ -29,9 +29,9 @@ namespace Eggland.Gathering
             // Check, which type of rock is this by looking at the prefix of the sprite's name
             var spriteName = GetComponent<SpriteRenderer>().sprite.name;
             
-            if (spriteName.StartsWith("small")) return smallOverlays;
-            if (spriteName.StartsWith("medium")) return mediumOverlays;
-            if (spriteName.StartsWith("large")) return largeOverlays;
+            if (spriteName.Contains("small")) return smallOverlays;
+            if (spriteName.Contains("medium")) return mediumOverlays;
+            if (spriteName.Contains("large")) return largeOverlays;
             
             throw new KeyNotFoundException(); // if no pattern matches, something clearly went wrong
         }

@@ -563,6 +563,8 @@ namespace Eggland
 
             if (Grass == null)
             {
+                Debug.Log("Fallout");
+                
                 generator.Clean();
                 
                 if (generator.ShouldGameOver())
@@ -579,6 +581,8 @@ namespace Eggland
                 }
                 else
                 {
+                    IsGathering = false;
+                    StopCoroutine(nameof(PlayGatheringAnimation));
                     generator.biome = generator.NextBiome();
                     generator.Generate();
                 }
